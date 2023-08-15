@@ -1,0 +1,70 @@
+import React, { useRef, useState } from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import AddEvent from "./AddEvent";
+import axios from "axios";
+import moment from "moment";
+
+function Calendar() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [events, setEvents] = useState([]);
+  const calendarRef = useRef(null);
+
+  const onEventAdded = (event) => {
+    let calendarApi = calendarRef.current.getApi();
+    calendarApi.addEvent({
+      start: moment(event.start).toDate(),
+      end: moment(event.end).toDate(),
+      title: event.title,
+    });
+  };
+
+  async function handleEventAdd(data) {
+    try{
+     await axios.post("http://localhost:7000/calendar/add-event", data.event);
+    }catch(error) {
+        console.log(error);
+    }
+}
+
+  async function handleDatesSet(data) {
+    try {
+    const response = await axios
+      .get(
+        "http://localhost:7000/calendar/view-event?start=" +
+          moment(data.start).toISOString() +
+          "&end=" +
+          moment(data.end).toISOString()
+      )
+    setEvents(response.data);
+      }catch(error) {
+        console.log(error);
+    }
+}
+
+
+  return (
+    <section>
+      <button onClick={() => setModalOpen(true)}>Add Event</button>
+      <div style={{ position: "relative", zIndex: 0 }}>
+        <FullCalendar
+          ref={calendarRef}
+          plugins={[dayGridPlugin]}
+          initialView="dayGridMonth"
+          eventAdd={(event) => handleEventAdd(event)}
+          datesSet={(date) => handleDatesSet(date)}
+          events={events}
+        />
+      </div>
+      <AddEvent
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onEventAdded={(event) => {
+          onEventAdded(event);
+        }}
+      />
+    </section>
+  );
+}
+
+export default Calendar;
