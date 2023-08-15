@@ -31,10 +31,7 @@ function Calendar() {
     try {
     const response = await axios
       .get(
-        "http://localhost:7000/calendar/view-event?start=" +
-          moment(data.start).toISOString() +
-          "&end=" +
-          moment(data.end).toISOString()
+        "http://localhost:7000/calendar/", data.event
       )
     setEvents(response.data);
       }catch(error) {
@@ -45,7 +42,7 @@ function Calendar() {
 
   return (
     <section>
-      <button onClick={() => setModalOpen(true)}>Add Event</button>
+      <button style = {{marginRight : '10px'}} onClick={() => setModalOpen(true)}>Add Event</button>
       <div style={{ position: "relative", zIndex: 0 }}>
         <FullCalendar
           ref={calendarRef}

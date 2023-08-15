@@ -26,7 +26,7 @@ function Home() {
 
       const data = await response.status.json();
       console.log(data);
-      setUser(data)
+      setUser(data.name)
 
       if(!response.status === 200){
         const error = new Error(response.error);
@@ -36,7 +36,6 @@ function Home() {
     }catch(err){
       console.log(err)
       
-      navigate('/login')
     }
   }
 
@@ -45,18 +44,18 @@ function Home() {
   })
 
   return (
-  <div>
-    <h1 style = {{margin: '5% auto', display : 'block'}} >{user.name} Welcome back </h1>
-    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src={timeline} class="d-block w-100" alt="timeline" />
+  <div >
+    <h1 style = {{margin: '5% auto', display : 'block'}}>{user} Welcome back </h1>
+    <div style = {{margin: '5% auto', display : 'block'}} id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+  <div style = {{height : '50%', width: '50%'}} class="carousel-inner">
+    <div  class="carousel-item active">
+      <img  src={timeline} class="d-block w-100" alt="timeline" />
     </div>
-    <div class="carousel-item">
-      <img src={meeting} class="d-block w-100" alt="meeting" />
+    <div  class="carousel-item">
+      <img  src={meeting} class="d-block w-100" alt="meeting" />
     </div>
-    <div class="carousel-item">
-      <img src={teamwork} class="d-block w-100" alt="team work" />
+    <div  class="carousel-item">
+      <img  src={teamwork} class="d-block w-100" alt="team work" />
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">

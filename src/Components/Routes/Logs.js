@@ -1,22 +1,50 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import axios from "axios";
 
-export default function Logs({taskTitle, taskUser, taskStatus}) {
+export default function Logs() {
+
+const [tableData, setTableData] = useState([])
 
 const columns = [
-  { field: 'taskName', headerName: 'Task Name', width: 200, headerAlign : 'center' },
-  { field: 'assignedTo', headerName: 'Assigned to', width: 200, headerAlign : 'center' },
-  { field: 'status', headerName: 'Status', width: 200, headerAlign : 'center'}
+  { field: 'title', headerName: 'Task Name', width: 200 },
+  { field: 'user', headerName: 'Assigned to', width: 200 },
+  { field: 'status', headerName: 'Status', width: 200}
 ];
 
-const rows = [{id: taskTitle, taskName: taskTitle, assignedTo: taskUser, status: taskStatus}
-];
+useEffect(() => {
+  (async () => {
+    const res = await axios.get("http://localhost:7000/task");
+
+    setTableData(res.data);
+
+  })();
+}, []);
 
 
   return (
       <DataGrid
-        style = {{margin : '5% auto', display : 'block', height: 'fit-content', maxWidth: '50%', backgroundColor : 'bisque'}}
-        rows={rows}
+      sx={{
+        '.MuiDataGrid-columnHeaderTitle':{
+          fontWeight : 'bold !important',
+          fontSize : '20px',
+          fontFamily : 'monospace'
+        },
+        margin : '5% auto',
+        display : 'block',
+        maxWidth : '600px',
+        boxShadow: 2,
+        backgroundColor : '#9AD1C9',
+        border: 2,
+        fontSize : '15px',
+        borderColor: 'primary.light',
+        '& .MuiDataGrid-cell:hover': {
+          color: 'primary.main'
+        },
+      }}
+        // style = {{margin : '5% auto', display : 'block', height: 'fit-content', maxWidth: '600px', backgroundColor : 'bisque'}}
+        rows={tableData}
+        getRowId={(row) => row._id }
         columns={columns}
         initialState={{
           pagination: {

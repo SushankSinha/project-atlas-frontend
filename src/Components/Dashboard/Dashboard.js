@@ -1,53 +1,134 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import Fab from "@mui/material/Fab";
+import Zoom from "@mui/material/Zoom";
+import axios from "axios";
 import Task from "./Task";
-import CreateTask from "./CreateTask";
-import './Task.css'
-import Status from './Status'
-import { v4 as uuid} from 'uuid'
+import Status from "./Status";
 import SearchBar from "./SearchBar";
+import './Task.css'
 
-function Dashboard({setTaskTitle, setTaskUser, setTaskStatus}) {
-  const [notes, setNotes] = useState([]);
+function Dashboard() {
+  const [isExpanded, setExpanded] = useState(false);
+  const [data, setData] = useState([]);
 
-  function addNote(newNote) {
-    setNotes((prevNotes) => {
-      return [...prevNotes, newNote];
+  const [note, setNote] = useState({
+    title: "",
+    content: "",
+    user: "",
+    status: 'Assigned'
+  });
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setNote((prevNote) => {
+      return {
+        ...prevNote,
+        [name]: value,
+      };
     });
   }
 
-  function deleteNote(id) {
-    setNotes((prevNotes) => {
-      return prevNotes.filter((noteItem, index) => {
-        return index !== id;
-      });
-    });
+  async function submitNote() {
+   
+    try {
+      const response = await axios.post(
+        "http://localhost:7000/task/add-task",
+        note
+      );
+
+      console.log(response.data.taskDetails.content);
+
+      if (response.status === 400) {
+        window.alert("Failed attempt");
+      } else {
+        window.alert("Task created");
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   }
 
-  const rowId = uuid().slice(0,5)
+  useEffect(() => {
+    (async () => {
+      const res = await axios.get("http://localhost:7000/task");
+
+      setData(res.data);
+
+      console.log(res.data);
+      console.log(res.data.length);
+    })();
+  }, []);
+
+  const expand = () => {
+    setExpanded(true);
+  };
 
   return (
     <div>
-      <CreateTask onAdd={addNote} />
-      <SearchBar  />
-      {notes.map((noteItem, index) => {
-        setTaskTitle(noteItem.title)
-        setTaskUser(noteItem.user)
-        return (<div style = {{display : 'flex', flexDirection : 'row'}}>
-          <Task
-            key={rowId}
-            id={index}
-            title={noteItem.title}
-            content={noteItem.content}
-            user={noteItem.user}
-            onDelete={deleteNote}
-            setTaskTitle = {noteItem.title}
-            setTaskUser = {noteItem.user}
+      <form method="POST" className="create-note">
+        <textarea
+          name="title"
+          onClick={expand}
+          onChange={handleChange}
+          value={note.title}
+          min={5}
+          placeholder="Add a task"
+          rows={isExpanded === true ? 1 : 1}
+        />
+
+        {isExpanded && (
+          <>
+            <textarea
+              name="content"
+              onClick={expand}
+              onChange={handleChange}
+              value={note.content}
+              min={5}
+              placeholder="Description..."
+              rows={isExpanded === true ? 1 : 0}
             />
-          <Status
-            key={noteItem.title}
-            id={index}
-            title={noteItem.title}
-            setTaskStatus = {setTaskStatus}
+
+            <textarea
+              name="user"
+              onClick={expand}
+              onChange={handleChange}
+              value={note.user}
+              min={3}
+              placeholder="Assign a user"
+              rows={isExpanded === true ? 1 : 0}
+            />
+          </>
+        )}
+        <Zoom in={isExpanded}>
+          <Fab
+            onClick={() => {
+              submitNote();
+              window.location.reload(true);
+            }}
+          >
+            <AddIcon />
+          </Fab>
+        </Zoom>
+      </form>
+      
+      <SearchBar />
+
+      {data.map((noteItem, index) => {
+        return (
+          <div style = {{marginBottom : '2%', display : 'flex', flexDirection : 'row'}} >
+            <Task
+              key={index}
+              id={noteItem._id}
+              title={noteItem.title}
+              content={noteItem.content}
+              user={noteItem.user}
+            />
+            <Status
+              key={noteItem._id + index + 5}
+              id={noteItem._id}
+              title={noteItem.title}
             />
           </div>
         );

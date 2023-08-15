@@ -1,16 +1,70 @@
-import * as React from "react";
+import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
 
-export default function Status({title, setTaskStatus}) {
-  const steps = [ `${title} is assigned`, `${title} is in progress`, `${title} is under review`, `${title} is completed!`];
+export default function Status(props) {
+  const steps = [ `"${props.title}" is assigned`, `"${props.title}" is in progress`, `"${props.title}" is under review`, `"${props.title}" is completed!`];
 
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [completed, setCompleted] = React.useState({});
+  const [activeStep, setActiveStep] = useState(0);
+  const [completed, setCompleted] = useState({});
+  const [taskStatus, setTaskStatus] = useState("Assigned");
+  const [taskCompletion, setTaskCompletion] = useState();
+
+  const handleStatusUpdate = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:7000/task/edit/${props.id}`, {status : taskStatus, completion : taskCompletion});
+        
+        if(Object.keys(completed).length === 0){
+          setTaskStatus('Assigned')
+          }else if(Object.keys(completed).length===1){
+            setTaskStatus('In Progress')
+            }else if(Object.keys(completed).length=== 2){
+              setTaskStatus('Under Review')
+              }else {
+                setTaskStatus('Review Completed')
+                }
+    
+      if (response.status === 201) {
+        console.log("Task updated successfully");
+      } else {
+        console.error("Failed to update Task");
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+  const taskStage = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:7000/task/${props.id}`);
+
+        console.log(response.data)
+        if(response.data.status==='Assigned'){
+        setTaskCompletion(25)
+        }else if(response.data.status==='In Progress'){
+          setTaskCompletion(50)
+          }else if(response.data.status==='Under Review'){
+            setTaskCompletion(75)
+            }else if(response.data.status==='Review Completed'){
+              setTaskCompletion(100)
+              }
+
+      if (response.status === 200) {
+        console.log("Task fetched successfully");
+      } else {
+        console.error("Failed to fetch Task");
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
 
   const totalSteps = () => {
     return steps.length;
@@ -31,9 +85,7 @@ export default function Status({title, setTaskStatus}) {
   const handleNext = () => {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
-        ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
+        ? steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -57,10 +109,7 @@ export default function Status({title, setTaskStatus}) {
     setActiveStep(0);
     setCompleted({});
   };
-
   // eslint-disable-next-line
-
- if(activeStep === 0){setTaskStatus("Assigned")} else if(  activeStep === 1){setTaskStatus("In Progress")} else if (activeStep === 2){ setTaskStatus("Under Review")} else if (activeStep === 3){ setTaskStatus("Review completed")} else{ setTaskStatus("Ready to deploy!")}
 
   return (
     <Box
@@ -69,9 +118,9 @@ export default function Status({title, setTaskStatus}) {
         borderRadius: "7px",
         boxShadow: "0 2px 5px #ccc",
         padding: "10px",
-        width: "75%",
-        marginTop: "3%",
+        width: "60%",
         marginLeft: "4%",
+        display : 'inline-block'
       }}
     >
       <Stepper nonLinear activeStep={activeStep}>
@@ -86,10 +135,10 @@ export default function Status({title, setTaskStatus}) {
       <div>
         {allStepsCompleted() ? (
           <React.Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>Task "{title}" is Completed!</Typography>
+            <Typography sx={{ mt: 2, mb: 1 }}>Task "{props.title}" is Completed!</Typography>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Box sx={{ flex: "1 1 auto" }} />
-              <Button onClick={handleReset}>Reset</Button>
+              <Button onClick={()=>{handleReset();taskStage();setTaskStatus('Assigned')}}>Reset</Button>
             </Box>
           </React.Fragment>
         ) : (
@@ -119,7 +168,7 @@ export default function Status({title, setTaskStatus}) {
                     Stage {activeStep + 1} already completed
                   </Typography>
                 ) : (
-                  <Button onClick={handleComplete}>
+                  <Button onClick={()=>{handleComplete(); handleStatusUpdate(); taskStage()}}>
                     {completedSteps() === totalSteps() - 1
                       ? "Finish"
                       : "Complete Stage"}

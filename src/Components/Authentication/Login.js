@@ -28,10 +28,9 @@ function Login() {
       e.preventDefault();
   
       try {
-        // Make the POST request using Axios
+
         const response = await axios.post('http://localhost:7000/login', formData);
 
-        // Handle the response from the server
         console.log(response.data); 
 
         if(response.status === 400){
@@ -41,7 +40,6 @@ function Login() {
           navigate('/')
         }
   
-        // You can also perform a redirect or show a success message here
       } catch (error) {
         
         console.error('Error:', error.message);  // Handle any errors that occurred during the request

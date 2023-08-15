@@ -10,13 +10,8 @@ import Logs from "./Components/Routes/Logs";
 import ChartPage from "./Components/Routes/ChartPage";
 import NotFound from "./Components/Routes/NotFound";
 import MainCalendar from "./Components/Calendar/MainCalendar";
-import { useState } from "react";
 
 function App() {
-
-  const [taskTitle, setTaskTitle] = useState('')
-  const [taskUser, setTaskUser] = useState('')
-  const [taskStatus, setTaskStatus] = useState('')
 
   return (
     <div className="App">
@@ -26,11 +21,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/reset_password" element={<ForgetPassword />} />
-        <Route path="/dashboard" element={<Dashboard setTaskTitle = {setTaskTitle} setTaskUser = {setTaskUser} setTaskStatus = {setTaskStatus}/>} />
+        <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/" element={<Home />} />
         <Route path="/charts" element={<ChartPage />} />
         <Route path="/calendar" element={<MainCalendar />} />
-        <Route path="/logs" element={<Logs taskTitle = {taskTitle} taskUser = {taskUser} taskStatus = {taskStatus}  />} />
+        <Route path="/logs" element={<Logs />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate replace to="/404" />} />
       </Routes>

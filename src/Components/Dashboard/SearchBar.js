@@ -1,30 +1,23 @@
-import { Container, InputAdornment, TextField } from "@mui/material";
+import { Container, TextField } from "@mui/material";
 import { useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 
-export default function SearchBar() {
-  const [searchText, setSearchText] = useState("");
+export default function SearchBar({data}) {
 
-  const handleChange = (event) => {
-    setSearchText(event.target.value);
+  const [searchTask, setSearchTask] = useState('');
+
+  const handleSearch = (e) => {
+    const searchValue = e.target.value;
+    setSearchTask(searchValue);
   };
 
   return (
-    <Container style = {{width : '50%', margin : "10px auto", display : 'block'}}>
+    <Container style = {{ width : '50%', margin : "20px auto", display : 'block'}}>
       <TextField
-        id="search"
         type="text"
-        label="Search"
-        value={searchText}
-        onChange={handleChange}
-        style={{ width: '100%', marginTop : "10px" }}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
+        placeholder="Search Tasks"
+        value={searchTask}
+        onChange={handleSearch}
+        style={{borderRadius : '10px', border: '2px solid black', width: '100%', marginTop : "10px" }}
       />
     </Container>
   );
