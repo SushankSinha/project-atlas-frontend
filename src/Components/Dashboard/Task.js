@@ -7,6 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import serverURL from "../global";
 
 function Task(props) {
   const [title, setTitle] = useState(props.title);
@@ -17,7 +18,7 @@ function Task(props) {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:7000/task/edit/${props.id}`, {title, content, user});
+        `${serverURL}/task/edit/${props.id}`, {title, content, user});
 
       if (response.status === 201) {
         console.log("Item updated successfully");
@@ -31,7 +32,7 @@ function Task(props) {
 
   async function handleDelete() {
     try {
-      await axios.delete(`http://localhost:7000/task/delete/${props.id}`);
+      await axios.delete(`${serverURL}/task/delete/${props.id}`);
     } catch (error) {
       console.error("Error:", error.message);
     }

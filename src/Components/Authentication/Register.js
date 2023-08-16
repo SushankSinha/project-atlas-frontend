@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import register from "./Photos/register.png";
 import axios from "axios";
+import serverURL from '../global'
 
 function Register() {
   const [user, setUser] = useState({
@@ -31,7 +32,7 @@ function Register() {
 
     try{
 
-    const response = await axios.post("http://localhost:7000/register", user);
+    const response = await axios.post(`${serverURL}/register`, user);
 
     // console.log(response.data)
 

@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import login from "./Photos/login.png";
 import axios from 'axios'
+import serverURL from '../global'
 
 function Login() {
 
@@ -29,7 +30,7 @@ function Login() {
   
       try {
 
-        const response = await axios.post('http://localhost:7000/login', formData);
+        const response = await axios.post(`${serverURL}/login`, formData);
 
         console.log(response.data); 
 

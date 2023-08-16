@@ -4,6 +4,7 @@ import axios from 'axios';
 import timeline from '../Authentication/Photos/timeline.jpg'
 import teamwork from '../Authentication/Photos/teamwork.jpg'
 import meeting from '../Authentication/Photos/meeting.jpg'
+import serverURL from '../global'
 
 function Home() {
 
@@ -13,7 +14,7 @@ function Home() {
 
   const renderHomePage = async () => {
     try{
-      const response = await axios.get('http://localhost:7000', {
+      const response = await axios.get(`${serverURL}`, {
         method : 'GET',
         headers : {
           Accept : 'application/json',

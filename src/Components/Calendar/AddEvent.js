@@ -24,20 +24,21 @@ function AddEvent({ isOpen, onClose, onEventAdded }) {
         style={{ display: "grid", width: "fit-content", height: "fit-content" }}
         onSubmit={onSubmit}
       >
-        <input
-          placeholder="title"
+        <input 
+        style={{margin : '10px auto'}}
+          placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <div>
+        <div style={{margin : '10px auto'}}>
           <label>Start Date</label>
           <Datetime value={start} onChange={date => setStart(date._d)} />
         </div>
-        <div>
+        <div style={{margin : '10px auto'}}>
           <label>End Date</label>
           <Datetime value={end} onChange={date => setEnd(date._d)} />
         </div>
-        <button>Add Event</button>
+        <button style={{margin : '10px auto'}} className="btn btn-primary">Add Event</button>
       </form>
     </Modal>
   );

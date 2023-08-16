@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from "axios";
+import serverURL from '../global'
 
 export default function Logs() {
 
@@ -14,7 +15,7 @@ const columns = [
 
 useEffect(() => {
   (async () => {
-    const res = await axios.get("http://localhost:7000/task");
+    const res = await axios.get(`${serverURL}/task`);
 
     setTableData(res.data);
 

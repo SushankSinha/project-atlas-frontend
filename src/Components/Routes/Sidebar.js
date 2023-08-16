@@ -9,14 +9,10 @@ import ListItemButton from "@mui/material/ListItemButton";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
-// import TimelineIcon from "@mui/icons-material/Timeline";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CodeIcon from "@mui/icons-material/Code";
 import LogoutIcon from "@mui/icons-material/Logout";
-// import ForumIcon from '@mui/icons-material/Forum';
-// import GroupsIcon from '@mui/icons-material/Groups';
-// import useAuth from '../Authentication/useAuth';
 
 export default function Sidebar() {
   const [state, setState] = React.useState({
@@ -59,16 +55,6 @@ export default function Sidebar() {
             </ListItemButton>
           </Link>
         </ListItem>
-        {/* <ListItem disablePadding>
-          <Link
-            style={{ textDecoration: "none", color: "black" }}
-            to="/timeline"
-          >
-            <ListItemButton>
-              <TimelineIcon style={{ margin: "10px" }} /> Timeline{" "}
-            </ListItemButton>
-          </Link>
-        </ListItem> */}
         <ListItem disablePadding>
           <Link
             style={{ textDecoration: "none", color: "black" }}
@@ -86,13 +72,6 @@ export default function Sidebar() {
             </ListItemButton>
           </Link>
         </ListItem>
-        {/* <ListItem disablePadding>
-          <Link style={{ textDecoration: "none", color: "black" }} to="/teams">
-            <ListItemButton>
-              <GroupsIcon style={{ margin: "10px" }} /> Teams{" "}
-            </ListItemButton>
-          </Link>
-        </ListItem> */}
         <ListItem disablePadding>
           <Link
             style={{ textDecoration: "none", color: "black" }}
@@ -106,19 +85,6 @@ export default function Sidebar() {
       </List>
       <Divider sx = {{borderBottomWidth : 3, backgroundColor : 'black'}} />
       <List style={{ margin: "10px", padding: "10px" }}>
-      {/* <ListItem disablePadding>
-        <Link
-            style={{ textDecoration: "none", color: "black" }}
-            to="/chat"
-          >
-          <ListItemButton>
-            {" "}
-            <ForumIcon style={{ margin: "10px" }} />
-            
-              Chat{" "}
-          </ListItemButton>
-          </Link>
-        </ListItem> */}
         <ListItem disablePadding>
         <Link
             style={{ textDecoration: "none", color: "black" }}

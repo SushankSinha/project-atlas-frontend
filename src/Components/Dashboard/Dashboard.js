@@ -7,6 +7,7 @@ import Task from "./Task";
 import Status from "./Status";
 import SearchBar from "./SearchBar";
 import './Task.css'
+import serverURL from "../global";
 
 function Dashboard() {
   const [isExpanded, setExpanded] = useState(false);
@@ -34,7 +35,7 @@ function Dashboard() {
    
     try {
       const response = await axios.post(
-        "http://localhost:7000/task/add-task",
+        `${serverURL}/task/add-task`,
         note
       );
 
@@ -52,7 +53,7 @@ function Dashboard() {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get("http://localhost:7000/task");
+      const res = await axios.get(`${serverURL}/task`);
 
       setData(res.data);
 

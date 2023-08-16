@@ -6,6 +6,7 @@ import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import serverURL from "../global";
 
 export default function Status(props) {
   const steps = [ `"${props.title}" is assigned`, `"${props.title}" is in progress`, `"${props.title}" is under review`, `"${props.title}" is completed!`];
@@ -18,7 +19,7 @@ export default function Status(props) {
   const handleStatusUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:7000/task/edit/${props.id}`, {status : taskStatus, completion : taskCompletion});
+        `${serverURL}/task/edit/${props.id}`, {status : taskStatus, completion : taskCompletion});
         
         if(Object.keys(completed).length === 0){
           setTaskStatus('Assigned')
@@ -43,7 +44,7 @@ export default function Status(props) {
   const taskStage = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:7000/task/${props.id}`);
+        `${serverURL}//task/${props.id}`);
 
         console.log(response.data)
         if(response.data.status==='Assigned'){

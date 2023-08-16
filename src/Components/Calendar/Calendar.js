@@ -1,9 +1,11 @@
 import React, { useRef, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import * as bootstrap from "bootstrap";
 import AddEvent from "./AddEvent";
 import axios from "axios";
 import moment from "moment";
+import serverURL from '../global'
 
 function Calendar() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -21,7 +23,7 @@ function Calendar() {
 
   async function handleEventAdd(data) {
     try{
-     await axios.post("http://localhost:7000/calendar/add-event", data.event);
+     await axios.post(`${serverURL}/calendar/add-event`, data.event);
     }catch(error) {
         console.log(error);
     }
@@ -31,7 +33,7 @@ function Calendar() {
     try {
     const response = await axios
       .get(
-        "http://localhost:7000/calendar/", data.event
+        `${serverURL}/calendar`, data.event
       )
     setEvents(response.data);
       }catch(error) {
@@ -51,6 +53,16 @@ function Calendar() {
           eventAdd={(event) => handleEventAdd(event)}
           datesSet={(date) => handleDatesSet(date)}
           events={events}
+          height={"90vh"}
+        eventDidMount={(info) => {
+          return new bootstrap.Popover(info.el, {
+            title: info.event.title,
+            placement: "auto",
+            trigger: "hover",
+            customClass: "popoverStyle",
+            html: true,
+          });
+        }}
         />
       </div>
       <AddEvent

@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { Bar } from 'react-chartjs-2';
+import serverURL from '../global'
 import { Chart, registerables } from 'chart.js';
+
 Chart.register(...registerables);
 
 
@@ -12,7 +14,7 @@ function ChartPage() {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get("http://localhost:7000/task");
+      const res = await axios.get(`${serverURL}/task`);
   
       setChartData(res.data);
       console.log(res.data);
