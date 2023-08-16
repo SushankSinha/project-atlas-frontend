@@ -18,7 +18,7 @@ function Task(props) {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `${serverURL}/task/edit/${props.id}`, {title, content, user});
+        `https://atlas-tool-server.onrender.com/task/edit/${props.id}`, {title, content, user});
 
       if (response.status === 201) {
         console.log("Item updated successfully");
@@ -32,7 +32,7 @@ function Task(props) {
 
   async function handleDelete() {
     try {
-      await axios.delete(`${serverURL}/task/delete/${props.id}`);
+      await axios.delete(`https://atlas-tool-server.onrender.com/task/delete/${props.id}`);
     } catch (error) {
       console.error("Error:", error.message);
     }

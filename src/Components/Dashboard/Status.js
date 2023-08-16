@@ -19,7 +19,7 @@ export default function Status(props) {
   const handleStatusUpdate = async () => {
     try {
       const response = await axios.put(
-        `${serverURL}/task/edit/${props.id}`, {status : taskStatus, completion : taskCompletion});
+        `https://atlas-tool-server.onrender.com/task/edit/${props.id}`, {status : taskStatus, completion : taskCompletion});
         
         if(Object.keys(completed).length === 0){
           setTaskStatus('Assigned')
@@ -44,7 +44,7 @@ export default function Status(props) {
   const taskStage = async () => {
     try {
       const response = await axios.get(
-        `${serverURL}//task/${props.id}`);
+        `https://atlas-tool-server.onrender.com//task/${props.id}`);
 
         console.log(response.data)
         if(response.data.status==='Assigned'){

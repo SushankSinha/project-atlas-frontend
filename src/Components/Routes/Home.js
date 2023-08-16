@@ -14,7 +14,7 @@ function Home() {
 
   const renderHomePage = async () => {
     try{
-      const response = await axios.get(`${serverURL}`, {
+      const response = await axios.get(`https://atlas-tool-server.onrender.com`, {
         method : 'GET',
         headers : {
           Accept : 'application/json',

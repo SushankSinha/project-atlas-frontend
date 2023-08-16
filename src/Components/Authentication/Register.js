@@ -32,7 +32,7 @@ function Register() {
 
     try{
 
-    const response = await axios.post(`${serverURL}/register`, user);
+    const response = await axios.post(`https://atlas-tool-server.onrender.com/register`, user);
 
     // console.log(response.data)
 

@@ -15,7 +15,7 @@ const columns = [
 
 useEffect(() => {
   (async () => {
-    const res = await axios.get(`${serverURL}/task`);
+    const res = await axios.get(`https://atlas-tool-server.onrender.com/task`);
 
     setTableData(res.data);
 

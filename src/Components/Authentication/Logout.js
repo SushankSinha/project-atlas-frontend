@@ -9,7 +9,7 @@ function Logout (){
 
     async function userLogout(){
         try {
-            const response = await axios.get(`${serverURL}/logout`, {
+            const response = await axios.get(`https://atlas-tool-server.onrender.com/logout`, {
                 method: 'GET',
                 headers : {
                     Accept: 'applicationjson',

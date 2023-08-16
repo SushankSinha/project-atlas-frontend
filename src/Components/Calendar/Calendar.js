@@ -23,7 +23,7 @@ function Calendar() {
 
   async function handleEventAdd(data) {
     try{
-     await axios.post(`${serverURL}/calendar/add-event`, data.event);
+     await axios.post(`https://atlas-tool-server.onrender.com/calendar/add-event`, data.event);
     }catch(error) {
         console.log(error);
     }
@@ -33,7 +33,7 @@ function Calendar() {
     try {
     const response = await axios
       .get(
-        `${serverURL}/calendar`, data.event
+        `https://atlas-tool-server.onrender.com/calendar`, data.event
       )
     setEvents(response.data);
       }catch(error) {

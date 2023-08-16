@@ -35,7 +35,7 @@ function Dashboard() {
    
     try {
       const response = await axios.post(
-        `${serverURL}/task/add-task`,
+        `https://atlas-tool-server.onrender.com/task/add-task`,
         note
       );
 
@@ -53,7 +53,7 @@ function Dashboard() {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(`${serverURL}/task`);
+      const res = await axios.get(`https://atlas-tool-server.onrender.com/task`);
 
       setData(res.data);
 
