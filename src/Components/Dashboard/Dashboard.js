@@ -5,8 +5,8 @@ import Zoom from "@mui/material/Zoom";
 import axios from "axios";
 import Task from "./Task";
 import Status from "./Status";
-import SearchBar from "./SearchBar";
 import './Task.css'
+import { Container, TextField } from "@mui/material";
 
 function Dashboard() {
   const [isExpanded, setExpanded] = useState(false);
@@ -19,6 +19,9 @@ function Dashboard() {
     status: 'Assigned'
   });
 
+  const [searchTask, setSearchTask] = useState(data);
+
+
   function handleChange(event) {
     const { name, value } = event.target;
 
@@ -29,6 +32,15 @@ function Dashboard() {
       };
     });
   }
+
+  const handleSearch = (event) => {
+    if(event.target.value === ""){;
+    setSearchTask(data);
+    return
+  }
+  const searchedTask = data.filter((item)=> item.title.toLowerCase().indexOf(event.target.value.toLowerCase()) > -1 )
+  setSearchTask(searchedTask)
+};
 
   async function submitNote() {
    
@@ -113,9 +125,16 @@ function Dashboard() {
         </Zoom>
       </form>
       
-      <SearchBar />
+      <Container style = {{ width : '50%', margin : "20px auto", display : 'block'}}>
+      <TextField
+        type="text"
+        placeholder="Search Tasks"
+        onChange={handleSearch}
+        style={{borderRadius : '10px', border: '2px solid black', width: '100%', marginTop : "10px" }}
+      />
+    </Container>
 
-      {data.map((noteItem, index) => {
+      {searchTask.map((noteItem, index) => {
         return (
           <div style = {{marginBottom : '2%', display : 'flex', flexDirection : 'row'}} >
             <Task
