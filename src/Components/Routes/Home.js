@@ -36,7 +36,6 @@ function Home() {
 
     }catch(err){
       console.log(err)
-      navigate('/login')
     }
   }
 
@@ -46,7 +45,7 @@ function Home() {
 
   return (
   <div >
-    <h1 style = {{margin: '5% auto', display : 'block'}}>{user} Welcome back </h1>
+    <h1 style = {{margin: '5% auto', display : 'block'}}>`${user}` Welcome back </h1>
     <div style = {{margin: '5% auto', display : 'block'}} id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
   <div style = {{height : '50%', width: '50%'}} class="carousel-inner">
     <div  class="carousel-item active">
