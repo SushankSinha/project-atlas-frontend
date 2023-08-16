@@ -34,9 +34,9 @@ function Dashboard() {
   }
 
   const handleSearch = (event) => {
-    if(event.target.value === ""){;
+    if(event.target.value === null){;
     setSearchTask(data);
-    return
+    return 
   }
   const searchedTask = data.filter((item)=> item.title.toLowerCase().indexOf(event.target.value.toLowerCase()) > -1 )
   setSearchTask(searchedTask)
@@ -67,6 +67,7 @@ function Dashboard() {
       const res = await axios.get(`https://atlas-tool-server.onrender.com/task`);
 
       setData(res.data);
+      setSearchTask(res.data)
 
       console.log(res.data);
       console.log(res.data.length);

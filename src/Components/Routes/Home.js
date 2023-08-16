@@ -36,7 +36,7 @@ function Home() {
 
     }catch(err){
       console.log(err)
-      
+      navigate('/login')
     }
   }
 
