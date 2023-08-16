@@ -5,7 +5,7 @@ import * as bootstrap from "bootstrap";
 import AddEvent from "./AddEvent";
 import axios from "axios";
 import moment from "moment";
-import serverURL from '../global'
+
 
 function Calendar() {
   const [modalOpen, setModalOpen] = useState(false);

@@ -7,7 +7,6 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
-import serverURL from "../global";
 
 function Task(props) {
   const [title, setTitle] = useState(props.title);

@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import login from "./Photos/login.png";
 import axios from 'axios'
-import serverURL from '../global'
+
 
 function Login() {
 

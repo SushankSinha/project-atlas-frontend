@@ -7,7 +7,6 @@ import Task from "./Task";
 import Status from "./Status";
 import SearchBar from "./SearchBar";
 import './Task.css'
-import serverURL from "../global";
 
 function Dashboard() {
   const [isExpanded, setExpanded] = useState(false);

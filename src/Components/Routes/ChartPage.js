@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { Bar } from 'react-chartjs-2';
-import serverURL from '../global'
+
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);

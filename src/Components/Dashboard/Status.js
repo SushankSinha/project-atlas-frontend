@@ -6,7 +6,6 @@ import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
-import serverURL from "../global";
 
 export default function Status(props) {
   const steps = [ `"${props.title}" is assigned`, `"${props.title}" is in progress`, `"${props.title}" is under review`, `"${props.title}" is completed!`];
