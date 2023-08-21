@@ -118,7 +118,7 @@ function Dashboard() {
           <Fab
             onClick={() => {
               submitNote();
-              window.location.reload(true);
+              window.location.reload();
             }}
           >
             <AddIcon />
