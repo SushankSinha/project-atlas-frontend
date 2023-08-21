@@ -7,7 +7,6 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
-import {useNavigate} from 'react-router-dom'
 
 function Task(props) {
   const [title, setTitle] = useState(props.title);
@@ -15,7 +14,6 @@ function Task(props) {
   const [user, setUser] = useState(props.user);
   const [isclicked, setIsClicked] = useState(false);
 
-  const navigate = useNavigate();
 
   const handleUpdate = async () => {
     try {
@@ -68,7 +66,7 @@ function Task(props) {
         </Button>
         <Button
           onClick={() => {
-            handleDelete(); navigate('/dashboard')
+            handleDelete()
           }}
           size="small"
         >
@@ -95,7 +93,7 @@ function Task(props) {
             value={user}
             onChange={(e) => setUser(e.target.value)}
           />
-          <button style = {{margin: '2px auto', display : 'block'}} type = 'button' className="btn btn-warning" onClick={()=>{handleUpdate(); navigate('/dashboard')}}>Update</button>
+          <button style = {{margin: '2px auto', display : 'block'}} type = 'button' className="btn btn-warning" onClick={()=>{handleUpdate()}}>Update</button>
         </div>
       )}
     </Card>
