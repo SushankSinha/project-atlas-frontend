@@ -7,6 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import {useNavigate} from 'react-router-dom'
 
 function Task(props) {
   const [title, setTitle] = useState(props.title);
@@ -14,13 +15,15 @@ function Task(props) {
   const [user, setUser] = useState(props.user);
   const [isclicked, setIsClicked] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `https://atlas-tool-server.onrender.com/task/edit/${props.id}`, {title, content, user});
-
+        `http://localhost:7000/task/edit/${props.id}`, {title, content, user});
       if (response.status === 201) {
         console.log("Item updated successfully");
+        window.location.reload();
       } else {
         console.error("Failed to update item");
       }
@@ -31,13 +34,14 @@ function Task(props) {
 
   async function handleDelete() {
     try {
-      await axios.delete(`https://atlas-tool-server.onrender.com/task/delete/${props.id}`);
+      await axios.delete(`http://localhost:7000/task/delete/${props.id}`);
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error.message);
     }
   }
 
-  const toggle = () => {
+  const toggleEdit = () => {
     setIsClicked(!isclicked); 
   };
 
@@ -56,20 +60,19 @@ function Task(props) {
       <CardActions style = {{margin: '2px auto', display : 'block'}}>
         <Button
           onClick={() => {
-            toggle()
+            toggleEdit()
           }}
           size="small"
         >
-          <EditIcon style={{marginLeft: '100%' }} />
+          <EditIcon style={{margin: 'auto 100%' }} />
         </Button>
         <Button
           onClick={() => {
-            handleDelete();
-            window.location.reload(true);
+            handleDelete(); navigate('/dashboard')
           }}
           size="small"
         >
-          <DeleteIcon style={{ marginLeft: '150%' }} />
+          <DeleteIcon style={{ margin: 'auto 150%' }} />
         </Button>
       </CardActions>
       {isclicked && (
@@ -92,7 +95,7 @@ function Task(props) {
             value={user}
             onChange={(e) => setUser(e.target.value)}
           />
-          <button style = {{margin: '2px auto', display : 'block'}} type = 'button' className="btn btn-warning" onClick={()=>{handleUpdate(); window.location.reload(true) }}>Update</button>
+          <button style = {{margin: '2px auto', display : 'block'}} type = 'button' className="btn btn-warning" onClick={()=>{handleUpdate(); navigate('/dashboard')}}>Update</button>
         </div>
       )}
     </Card>
