@@ -4,7 +4,7 @@ import React from "react";
 import timeline from '../Authentication/Photos/timeline.jpg'
 import teamwork from '../Authentication/Photos/teamwork.jpg'
 import meeting from '../Authentication/Photos/meeting.jpg'
-
+import Typography from "@mui/material/Typography";
 
 function Home() {
 
@@ -45,9 +45,11 @@ function Home() {
 
   return (
   <div >
-    <h1 style = {{margin: '5% auto', display : 'block'}}> Welcome back </h1>
+  <Typography style = {{margin: '2%', fontWeight : 'bold'}} >
+    <h1 align = {'center'}> Welcome back </h1>
+  </Typography>
     <div style = {{margin: '5% auto', display : 'block'}} id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
-  <div style = {{height : '50%', width: '50%'}} className="carousel-inner">
+  <div style = {{height : '100%', width: '100%'}} className="carousel-inner">
     <div  className="carousel-item active">
       <img  src={timeline} className="d-block w-100" alt="timeline" />
     </div>
