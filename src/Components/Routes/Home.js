@@ -1,6 +1,7 @@
-import React from "react";
-// import {useNavigate} from 'react-router-dom'
-// import axios from 'axios';
+import React, {useEffect, useState} from "react";
+import {useNavigate} from 'react-router-dom'
+import axios from 'axios';
+import { useCookies } from "react-cookie";
 import timeline from '../Authentication/Photos/timeline.jpg'
 import teamwork from '../Authentication/Photos/teamwork.jpg'
 import meeting from '../Authentication/Photos/meeting.jpg'
@@ -8,45 +9,31 @@ import Typography from "@mui/material/Typography";
 
 function Home() {
 
-  // const [user, setUser] = useState('')
-
-  // const navigate = useNavigate();
-
-  // const renderHomePage = async () => {
-  //   try{
-      // const response = await axios.get(`https://atlas-tool-server.onrender.com`, {
-      //   method : 'GET',
-      //   headers : {
-      //     Accept : 'application/json',
-      //     'Content-Type' : 'application/json'
-      //   },
-      //   credentials : 'include'
-      // })
-
-  //     navigate('/')
-
-  //     const data = await response.status.json();
-  //     console.log(data);
-  //     setUser(data.name)
-
-  //     if(!response.status === 200){
-  //       const error = new Error(response.error);
-  //       throw error;
-  //     }
-
-  //   }catch(err){
-  //     console.log(err)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //     renderHomePage();
-  // })
+  const navigate = useNavigate();
+  const [cookies, removeCookie] = useCookies([]);
+  const [username, setUsername] = useState("");
+  useEffect(() => {
+    const verifyCookie = async () => {
+      if (!cookies.token) {
+        navigate("/login");
+      }
+      const { data } = await axios.post(
+        "https://atlas-tool-server.onrender.com",
+        {},
+        { withCredentials: true }
+      );
+      const { status, user } = data;
+      
+      return status
+        ? setUsername(user) : (removeCookie("token"), navigate("/login"));
+    };
+    verifyCookie();
+  }, [cookies, navigate, removeCookie]);
 
   return (
   <div >
   <Typography style = {{margin: '2%', fontWeight : 'bold'}} >
-    <h1 align = {'center'}> Welcome back </h1>
+    <h1 align = {'center'}> Welcome back, {username} </h1>
   </Typography>
     <div style = {{margin: '5% auto', display : 'block'}} id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
   <div style = {{height : '100%', width: '100%'}} className="carousel-inner">
