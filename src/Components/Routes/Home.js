@@ -23,9 +23,9 @@ function Home() {
         { withCredentials: true }
       );
       const { status, user } = data;
-      
+      setUsername(user)
       return status
-        ? setUsername(user) : (removeCookie("token"), navigate("/login"));
+        ? navigate('/') : (removeCookie("token"), navigate("/login"));
     };
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
@@ -33,7 +33,7 @@ function Home() {
   return (
   <div >
   <Typography style = {{margin: '2%', fontWeight : 'bold'}} >
-    <h1 align = {'center'}> Welcome back, {username} </h1>
+    <h1 align = {'center'}> Welcome back {username} </h1>
   </Typography>
     <div style = {{margin: '5% auto', display : 'block'}} id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
   <div style = {{height : '100%', width: '100%'}} className="carousel-inner">
