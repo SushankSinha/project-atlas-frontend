@@ -1,7 +1,4 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate} from 'react-router-dom'
-import axios from 'axios';
-import { useCookies } from "react-cookie";
+import React from "react";
 import timeline from '../Authentication/Photos/timeline.jpg'
 import teamwork from '../Authentication/Photos/teamwork.jpg'
 import meeting from '../Authentication/Photos/meeting.jpg'
@@ -9,31 +6,11 @@ import Typography from "@mui/material/Typography";
 
 function Home() {
 
-  const navigate = useNavigate();
-  const [cookies, removeCookie] = useCookies([]);
-  const [username, setUsername] = useState("");
-  useEffect(() => {
-    const verifyCookie = async () => {
-      if (!cookies.token) {
-        navigate("/login");
-      }
-      const { data } = await axios.post(
-        "https://atlas-tool-server.onrender.com",
-        {},
-        { withCredentials: true }
-      );
-      const { status, user } = data;
-      setUsername(user)
-      return status
-        ? navigate('/') : (removeCookie("token"), navigate("/login"));
-    };
-    verifyCookie();
-  }, [cookies, navigate, removeCookie]);
 
   return (
   <div >
   <Typography style = {{margin: '2%', fontWeight : 'bold'}} >
-    <h1 align = {'center'}> Welcome back {username} </h1>
+    <h1 align = { 'center'}> Welcome back </h1>
   </Typography>
     <div style = {{margin: '5% auto', display : 'block'}} id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
   <div style = {{height : '100%', width: '100%'}} className="carousel-inner">
