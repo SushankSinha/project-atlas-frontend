@@ -32,7 +32,15 @@ function Register() {
 
     try{
 
-    const response = await axios.post(`https://atlas-tool-server.onrender.com/register`, user, {withCredentials: true});
+    const response = await axios.post(`https://atlas-tool-server.onrender.com/register`,{
+      method: 'POST',
+      headers : {
+          Accept: 'applicationjson',
+          "Content-Type" : 'applicationjson'
+
+      },
+      credentials : 'include'
+  }, user);
 
     // console.log(response.data)
 

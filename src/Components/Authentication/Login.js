@@ -30,7 +30,17 @@ function Login() {
   
       try {
 
-        const response = await axios.post(`https://atlas-tool-server.onrender.com/login`, formData, {withCredentials: true} );
+        const response = await axios.post(`https://atlas-tool-server.onrender.com/login`, {
+          method: 'POST',
+          headers : {
+              Accept: 'applicationjson',
+              "Content-Type" : 'applicationjson',
+              "alg": "HS256",
+              "typ": "JWT"
+
+          },
+          credentials : 'include'
+      }, formData );
 
         console.log(response.data); 
 
