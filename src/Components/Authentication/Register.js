@@ -12,9 +12,7 @@ function Register() {
   const [user, setUser] = useState({
     name: "",
     email: "",
-    type: "",
-    password: "",
-    cnfPassword: ""
+    password: ""
   });
 
   const navigate = useNavigate();
@@ -114,20 +112,6 @@ function Register() {
             name="email"
           />
 
-          <select
-            aria-label="User Type"
-            required={true}
-            name="type"
-            value={user.type}
-            onClick={handleInput}
-            style={{ margin: "10px", width: "480px", height: "55px" }}
-            className="form-select"
-          >
-            <option defaultValue={true}>Admin</option>
-            <option value="Project Manager">Project Manager</option>
-            <option value="Employee">Employee</option>
-          </select>
-
           <TextField
             id="outlined-basic"
             label="Password"
@@ -140,23 +124,11 @@ function Register() {
             name="password"
           />
 
-          <TextField
-            id="outlined-basic"
-            label="Confirm Password"
-            type="text"
-            required={true}
-            variant="outlined"
-            style={{ margin: "10px" }}
-            value={user.cnfPassword}
-            onChange={handleInput}
-            name="cnfPassword"
-          />.
-
 
           <Button
             onClick={userData}
             variant="contained"
-            style={{ fontWeight: "bold", margin: "10px" }}
+            style={{ fontWeight: "bold", margin: "5%", width : '90%' }}
           >
             Sign Up
           </Button>
