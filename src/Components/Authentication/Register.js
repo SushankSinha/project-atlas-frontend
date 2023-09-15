@@ -60,11 +60,12 @@ function Register() {
   console.log(user)
 
   return (
+    <form method="POST">
     <Box
       style={{
         display: "block",
-        margin: "3% auto",
-        width: "90%",
+        margin: "5% auto",
+        maxWidth: "80%",
         height: "fit-content",
         alignContent: "center",
         justifyContent: "center",
@@ -73,19 +74,20 @@ function Register() {
     >
       <Paper
         style={{
-          display: "grid",
+          display: "grid"
         }}
         elevation={10}
       >
-        <h3 style={{ margin: "10px auto" }}>Sign Up</h3>
+        <h2 style={{ margin: "20px auto" }}>Sign Up</h2>
 
         <image
-          style={{
-            height: "200px",
+          style={{textAlign: 'center',
+          width: '100%',
+            height: "30vh",
             backgroundImage: `url(${register})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
-            backgroundPosition: "center",
+            backgroundPosition: 'center'
           }}
         />
 
@@ -165,6 +167,7 @@ function Register() {
         </form>
       </Paper>
     </Box>
+    </form>
   );
 }
 

@@ -63,8 +63,8 @@ function Login() {
     <Box
       style={{
         display: "block",
-        margin: "2% auto",
-        maxWidth: "50%",
+        margin: "5% auto",
+        maxWidth: "80%",
         height: "fit-content",
         alignContent: "center",
         justifyContent: "center",
@@ -77,15 +77,16 @@ function Login() {
         }}
         elevation={10}
       >
-        <h3 style={{ margin: "10px auto", display : 'block' }}>Login</h3>
+        <h2 style={{ margin: "20px auto", display : 'block' }}>Login</h2>
 
         <image
           style={{textAlign: 'center',
-          width: '50%',
+          width: '100%',
             height: "300px",
             backgroundImage: `url(${login})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
+            backgroundPosition: 'center'
           }}
         />
 
@@ -110,7 +111,6 @@ function Login() {
 
         <Button
           onClick = {handleSubmit}
-          // onClick = {loginUser}
           variant="contained"
           style={{ fontWeight: "bold", margin: "10px" }}
         >
