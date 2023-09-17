@@ -56,7 +56,11 @@ function Login() {
         
         console.error('Error:', error.message); 
         
-        window.alert("Invalid Credentials")
+        window.alert("Invalid Credentials");
+
+        if (error){
+          navigate('/login')
+        }
       }
 
     };
