@@ -44,16 +44,19 @@ function Login() {
 
         console.log(response.data); 
 
-        if(response.status === 400){
-          window.alert("Invalid Credentials")
-        } else {
+        if(response.status === 200){
+        
+          const data = await response.json();
+          localStorage.setItem('token', data.token);
           window.alert("Login Successful");
           navigate('/')
         }
-  
+          
       } catch (error) {
         
-        console.error('Error:', error.message);  // Handle any errors that occurred during the request
+        console.error('Error:', error.message); 
+        
+        window.alert("Invalid Credentials")
       }
 
     };

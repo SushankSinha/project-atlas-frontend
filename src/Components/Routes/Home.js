@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import timeline from '../Authentication/Photos/timeline.jpg'
 import teamwork from '../Authentication/Photos/teamwork.jpg'
 import meeting from '../Authentication/Photos/meeting.jpg'
@@ -6,11 +6,32 @@ import Typography from "@mui/material/Typography";
 
 function Home() {
 
+  const [data, setData] = useState(null);
+
+  const token = localStorage.getItem('token');
+/* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    fetch('/', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        setData(responseData);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
+
 
   return (
   <div >
   <Typography style = {{margin: '2%', fontWeight : 'bold'}} >
     <h1 align = { 'center'}> Welcome back </h1>
+      {data ? <p>{data.message}</p> : <p>Loading...</p>}
   </Typography>
     <div style = {{margin: '5% auto', display : 'block'}} id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
   <div style = {{height : '100%', width: '100%'}} className="carousel-inner">
