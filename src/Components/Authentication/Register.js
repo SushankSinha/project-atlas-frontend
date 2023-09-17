@@ -89,7 +89,7 @@ function Register() {
           }}
         />
 
-        <form method="POST">
+        <form method="POST" style = {{display : 'flex', flexDirection : 'column'}}>
           <TextField
             id="outlined-basic"
             label="Name"
