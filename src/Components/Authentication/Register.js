@@ -19,7 +19,15 @@ function Register() {
 
     try{
 
-    const response = await axios.post(`https://atlas-tool-server.onrender.com/register`, {name, email, password});
+    const response = await axios.post(`https://atlas-tool-server.onrender.com/register`, {
+      method: 'POST',
+      headers : {
+          Accept: 'applicationjson',
+          "Content-Type" : 'applicationjson'
+
+      },
+      credentials : 'include'
+  }, {name, email, password});
 
     if (response.status === 201) {
       window.alert('Account Created');
@@ -118,4 +126,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Register;y
