@@ -45,9 +45,7 @@ function Register() {
     }
   };
 
-  console.log(user)
-
-  return (
+   return (
     <form method="POST">
     <Box
       style={{
