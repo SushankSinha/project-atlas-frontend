@@ -28,7 +28,7 @@ function Register() {
 
       },
       credentials : 'include'
-  }, {name : name, email : email, password : password});
+  }, {name, email, password});
 
     // console.log(response.data)
 
