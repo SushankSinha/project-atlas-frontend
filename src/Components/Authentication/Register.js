@@ -7,7 +7,6 @@ import { Link, useNavigate } from "react-router-dom";
 import register from "./Photos/register.png";
 import axios from "axios";
 
-
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,19 +22,17 @@ function Register() {
     const response = await axios.post(`https://atlas-tool-server.onrender.com/register`, {name, email, password});
 
     if (response.status === 201) {
-      window.alert('successful');
+      window.alert('Account Created');
 
       navigate("/login");
     }      
   } catch (error) {
         
-      console.error('Error:', error.message);  
-
-      window.alert("Failed to register")
+      alert(error.message)
     }
   };
 
-   return (
+  return (
     <form method="POST">
     <Box
       style={{
@@ -67,16 +64,16 @@ function Register() {
           }}
         />
 
-        <form method="POST" style = {{display : 'flex', flexDirection : 'column'}}>
+        <form method="POST">
           <TextField
             id="outlined-basic"
-            label="Name"
+            label="Full Name"
             variant="outlined"
             required={true}
-            style={{ margin: "10px", width : '90%' }}
+            style={{ margin: "10px", display: "flex",
+          flexDirection : 'column' }}
             value={name}
-            onChange={(e)=>{setName(e.target.value)}}
-            name="name"
+            onChange={(e)=>setName(e.target.value)}
           />
           <TextField
             id="outlined-basic"
@@ -84,10 +81,10 @@ function Register() {
             type="email"
             variant="outlined"
             required={true}
-            style={{ margin: "10px", width : '90%' }}
+            style={{ margin: "10px", display: "flex",
+          flexDirection : 'column' }}
             value={email}
-            onChange={(e)=>{setEmail(e.target.value)}}
-            name="email"
+            onChange={(e)=>setEmail(e.target.value)}
           />
 
           <TextField
@@ -96,32 +93,29 @@ function Register() {
             type="text"
             required={true}
             variant="outlined"
-            style={{ margin: "10px", width : '90%' }}
+            style={{ margin: "10px", display: "flex",
+          flexDirection : 'column' }}
             value={password}
-            onChange={(e)=>{setPassword(e.target.value)}}
-            name="password"
-            
+            onChange={(e)=>setPassword(e.target.value)}
           />
-
 
           <Button
             onClick={userData}
             variant="contained"
-            style={{ fontWeight: "bold", margin: "5%", width : '90%' }}
+            style={{ fontWeight: "bold", display: "flex",
+          flexDirection : 'column', margin: "10px auto", width: '95%' }}
           >
             Sign Up
           </Button>
 
-          <h6 style={{ margin: "10px" }}>
+          <h5 style={{ margin: "10px", fontSize : '15px' }}>
             Already a member? <Link to="/login">Log In</Link>
-          </h6>
+          </h5>
         </form>
       </Paper>
     </Box>
     </form>
   );
 }
-
-export default Register;
 
 

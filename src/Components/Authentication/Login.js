@@ -3,64 +3,30 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import login from "./Photos/login.png";
 import axios from 'axios'
 
 
 function Login() {
 
-  const [formData, setFormData] = useState({
-      email: '',
-      password: '',
-    });
-  
-    const navigate = useNavigate()
-
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   
     async function handleSubmit(e) {
       e.preventDefault();
   
       try {
 
-        const response = await axios.post(`https://atlas-tool-server.onrender.com/login`, {
-          method: 'POST',
-          headers : {
-              Accept: 'applicationjson',
-              "Content-Type" : 'applicationjson',
-              "alg": "HS256",
-              "typ": "JWT"
-
-          },
-          credentials : 'include'
-      }, formData );
-
-        console.log(response.data); 
+        const response = await axios.post(`https://atlas-tool-server.onrender.com/login`, {email : email, password : password});
 
         if(response.status === 200){
-        
-          const data = await response.json();
-          localStorage.setItem('token', data.token);
           window.alert("Login Successful");
-          navigate('/')
         }
-          
+  
       } catch (error) {
-        
-        console.error('Error:', error.message); 
-        
-        window.alert("Invalid Credentials");
-
-        if (error){
-          navigate('/login')
-        }
+        alert("No or Invalid credentials")
+       console.log(error)
       }
 
     };
@@ -103,8 +69,9 @@ function Login() {
           variant="outlined"
           style={{ margin: "10px" }}
           name = 'email'
-          value = {formData.email}
-          onChange={handleChange}
+          required = {true}
+          value = {email}
+          onChange={(e)=>setEmail(e.target.value)}
         />
         <TextField
           id="outlined-basic"
@@ -112,8 +79,9 @@ function Login() {
           variant="outlined"
           style={{ margin: "10px" }}
           name = 'password'
-          value = {formData.password}
-          onChange={handleChange}
+          required = {true}
+          value = {password}
+          onChange={(e)=>setPassword(e.target.value)}
         />
 
         <Button
@@ -124,8 +92,8 @@ function Login() {
           Login
         </Button>
 
-        <h6 style={{ margin: "10px" }}><Link to="/reset_password">Reset Password</Link> | <Link to="/register">Create an Account</Link>
-        </h6>
+        <h5 style={{ margin: "10px", fontSize : '15px' }}><Link to="/reset_password">Reset Password</Link> | <Link to="/register">Create an Account</Link>
+        </h5>
       </Paper>
     </Box>
     </ form>
@@ -133,3 +101,4 @@ function Login() {
 }
 
 export default Login;
+
