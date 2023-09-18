@@ -9,21 +9,11 @@ import axios from "axios";
 
 
 function Register() {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    password: ""
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    setUser((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
 
   async function userData(e){
     e.preventDefault();
@@ -38,20 +28,20 @@ function Register() {
 
       },
       credentials : 'include'
-  }, user);
+  }, {name : name, email : email, password : password});
 
     // console.log(response.data)
 
-    if (response.status === 422) {
-      window.alert('unsuccessful');
-    } else {
+    if (response.status === 201) {
       window.alert('successful');
 
       navigate("/login");
     }      
   } catch (error) {
         
-      console.error('Error:', error.message);  // Handle any errors that occurred during the request
+      console.error('Error:', error.message);  
+
+      window.alert("Failed to register")
     }
   };
 
@@ -95,9 +85,9 @@ function Register() {
             label="Name"
             variant="outlined"
             required={true}
-            style={{ margin: "10px" }}
-            value={user.name}
-            onChange={handleInput}
+            style={{ margin: "10px", width : '90%' }}
+            value={name}
+            onChange={(e)=>{setName(e.target.value)}}
             name="name"
           />
           <TextField
@@ -106,9 +96,9 @@ function Register() {
             type="email"
             variant="outlined"
             required={true}
-            style={{ margin: "10px" }}
-            value={user.email}
-            onChange={handleInput}
+            style={{ margin: "10px", width : '90%' }}
+            value={email}
+            onChange={(e)=>{setEmail(e.target.value)}}
             name="email"
           />
 
@@ -118,10 +108,11 @@ function Register() {
             type="text"
             required={true}
             variant="outlined"
-            style={{ margin: "10px" }}
-            value={user.password}
-            onChange={handleInput}
+            style={{ margin: "10px", width : '90%' }}
+            value={password}
+            onChange={(e)=>{setPassword(e.target.value)}}
             name="password"
+            
           />
 
 
