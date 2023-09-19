@@ -14,14 +14,15 @@ function Home() {
   useEffect(() => {
     (async ()=>{
       try{
-        await axios('/', {
+        const response = await axios('/', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
           },
         }
     );
-
+    setData(response)
+    
       }catch(error){
         console.error('Error:', error);
       }
