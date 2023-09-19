@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import login from "./Photos/login.png";
 import axios from 'axios'
 
@@ -12,7 +12,8 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const navigate = useNavigate();
+
     async function handleSubmit(e) {
       e.preventDefault();
   
@@ -22,10 +23,11 @@ function Login() {
 
         if(response.status === 200){
           window.alert("Login Successful");
+          navigate('/')
         }
   
       } catch (error) {
-        alert("No or Invalid credentials")
+        alert("Invalid credentials")
        console.log(error)
       }
 
