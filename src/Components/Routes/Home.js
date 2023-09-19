@@ -3,6 +3,7 @@ import timeline from '../Authentication/Photos/timeline.jpg'
 import teamwork from '../Authentication/Photos/teamwork.jpg'
 import meeting from '../Authentication/Photos/meeting.jpg'
 import Typography from "@mui/material/Typography";
+import axios from 'axios';
 
 function Home() {
 
@@ -11,19 +12,21 @@ function Home() {
   const token = localStorage.getItem('token');
 /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    fetch('/', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        setData(responseData);
-      })
-      .catch((error) => {
+    (async ()=>{
+      try{
+        await axios('/', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        }
+    );
+
+      }catch(error){
         console.error('Error:', error);
-      });
+      }
+    })();
+    
   }, []);
 
 
