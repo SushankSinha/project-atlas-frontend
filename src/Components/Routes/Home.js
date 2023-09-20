@@ -14,10 +14,10 @@ function Home() {
 
   const token = localStorage.getItem('token');
 /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    (async ()=>{
+  
+async function LoadHome(){
       try{
-        const response = await axios('/', {
+        const response = await axios.get('/', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -29,9 +29,11 @@ function Home() {
       }catch(error){
         console.error('Error:', error);
       }
-    })();
-    
-  }, []);
+    };
+  
+    useEffect(() => {
+      LoadHome()
+  }, [token]);
 
   function HomePage (){
     return (
