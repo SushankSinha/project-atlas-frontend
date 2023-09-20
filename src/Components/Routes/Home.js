@@ -17,7 +17,7 @@ function Home() {
   useEffect(() => {
     (async ()=>{
       try{
-        const response = await axios('https://atlas-tool-server.onrender.com', {
+        const response = await axios('/', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
