@@ -24,7 +24,9 @@ async function LoadHome(){
           },
         }
     );
-    setData(response)
+    if(response.status === 200){
+    setData(response.data)
+    }
     
       }catch(error){
         console.error('Error:', error);
