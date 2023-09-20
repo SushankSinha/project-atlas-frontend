@@ -4,12 +4,28 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-// import IconButton from "@mui/material/IconButton";
 import Sidebar from "./Sidebar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ArchitectureIcon from "@mui/icons-material/Architecture";
+import axios from 'axios';
 
 export default function Navbar() {
+
+  const navigate = useNavigate();
+
+  async function userLogout(){
+      try {
+          const response = await axios.get(`https://atlas-tool-server.onrender.com/logout`)
+          if(response.status === 200){
+          navigate('/login');
+          }
+
+      } catch (error) {
+          console.log(error)
+      }
+      
+  }
+
   return (
     <Box>
       <AppBar position="static">
@@ -38,8 +54,8 @@ export default function Navbar() {
           <Button color="inherit">Login</Button></Link>
           <Link to="/register" style={{ color: "white", textDecoration: "none" }}>
           <Button color="inherit">Register</Button></Link>
-          <Link to="/logout" style={{ color: "white", textDecoration: "none" }}>
-          <Button color="inherit">Logout</Button></Link>
+          <Link style={{ color: "white", textDecoration: "none" }}>
+          <Button color="inherit" onClick={userLogout} >Logout</Button></Link>
         </Toolbar>
       </AppBar>
     </Box>

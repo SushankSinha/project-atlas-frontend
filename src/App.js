@@ -1,6 +1,5 @@
 import ForgetPassword from "./Components/Authentication/ForgetPassword";
 import Login from "./Components/Authentication/Login";
-import Logout from "./Components/Authentication/Logout";
 import Register from "./Components/Authentication/Register";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./Components/Dashboard/Dashboard";
@@ -19,7 +18,6 @@ function App() {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
         <Route path="/reset_password" element={<ForgetPassword />} />
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/" element={<Home />} />
