@@ -17,7 +17,7 @@ function Home() {
   
 async function LoadHome(){
       try{
-        const response = await axios.get('/', {
+        const response = await axios.get('https://atlas-tool-server.onrender.com', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
