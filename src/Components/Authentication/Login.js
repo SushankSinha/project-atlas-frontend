@@ -14,10 +14,6 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  let user = JSON.parse(sessionStorage.getItem('data'));
-
-  const jwtToken = user.data.id
-
     async function handleSubmit(e) {
       e.preventDefault();
   
@@ -25,7 +21,7 @@ function Login() {
 
         const response = await axios.post(`https://atlas-tool-server.onrender.com/login`, {email : email, password : password}, {
           headers : {
-            'Authorization' : `Bearer ${jwtToken}`,
+            'Authorization' : `Bearer ${localStorage.getItem('token')}`,
             'Content-Type' : 'application/json',
             'Accept'  : 'application/json'
           }
