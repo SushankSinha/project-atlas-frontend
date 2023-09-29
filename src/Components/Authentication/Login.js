@@ -14,9 +14,9 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  let user = JSON.parse(sessionStorage.getItem('token'));
+  let user = JSON.parse(sessionStorage.getItem('data'));
 
-  const jwtToken = user.token
+  const jwtToken = user.data.id
 
     async function handleSubmit(e) {
       e.preventDefault();
