@@ -28,7 +28,7 @@ function Navbar() {
 
   useEffect(()=>{
     userInfo()
-  },[])
+  },[display])
  
   return (
     <Box>
