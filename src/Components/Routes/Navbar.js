@@ -1,31 +1,35 @@
-import * as React from "react";
+import React, {useState, useEffect} from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Sidebar from "./Sidebar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ArchitectureIcon from "@mui/icons-material/Architecture";
-import axios from 'axios';
+import axios from "axios";
 
-export default function Navbar() {
+function Navbar() {
 
-  const navigate = useNavigate();
+  const[display, setDisplay] = useState(true);
 
-  async function userLogout(){
-      try {
-          const response = await axios.get(`https://atlas-tool-server.onrender.com/logout`)
-          if(response.status === 200){
-          navigate('/login');
-          }
-
-      } catch (error) {
-          console.log(error)
+  async function userInfo(){
+    try {
+      const response = await axios.get('https://atlas-tool-server.onrender.com')
+      if(response.status === 200){
+        setDisplay(false)
+      } else {
+        setDisplay(true)
       }
-      
+    } catch (error) {
+      console.log(error)
+    }
   }
 
+  useEffect(()=>{
+    userInfo()
+  },[])
+ 
   return (
     <Box>
       <AppBar position="static">
@@ -50,14 +54,14 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {/* News */}
           </Typography>
-          <Link to="/login" style={{ color: "white", textDecoration: "none" }}>
+          {display && (<><Link to="/login" style={{ color: "white", textDecoration: "none" }}>
           <Button color="inherit">Login</Button></Link>
           <Link to="/register" style={{ color: "white", textDecoration: "none" }}>
-          <Button color="inherit">Register</Button></Link>
-          <Link style={{ color: "white", textDecoration: "none" }}>
-          <Button color="inherit" onClick={userLogout} >Logout</Button></Link>
+          <Button color="inherit">Register</Button></Link></>)}
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
+
+export default Navbar;

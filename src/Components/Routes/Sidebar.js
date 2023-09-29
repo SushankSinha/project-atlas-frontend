@@ -13,6 +13,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CodeIcon from "@mui/icons-material/Code";
 import LogoutIcon from "@mui/icons-material/Logout";
+import axios from 'axios'
 
 export default function Sidebar() {
   const [state, setState] = React.useState({
