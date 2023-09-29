@@ -6,7 +6,7 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -32,6 +32,22 @@ export default function Sidebar() {
 
     setState({ ...state, [anchor]: open });
   };
+
+  
+  const navigate = useNavigate();
+
+  async function userLogout(){
+      try {
+          const response = await axios.get(`https://atlas-tool-server.onrender.com/logout`)
+          if(response.status === 200){
+          navigate('/login');
+          }
+
+      } catch (error) {
+          console.log(error)
+      }
+      
+  }
 
   const list = (anchor) => (
     <Box
@@ -88,9 +104,8 @@ export default function Sidebar() {
         <ListItem disablePadding>
         <Link
             style={{ textDecoration: "none", color: "black" }}
-            to="/login"
           >
-          <ListItemButton>
+          <ListItemButton onClick={userLogout}>
             {" "}
             <LogoutIcon style={{ margin: "10px" }} />
             
@@ -103,7 +118,6 @@ export default function Sidebar() {
   );
 
   
-  // const isLoggedIn = useAuth();
 
   return (
     <div>
