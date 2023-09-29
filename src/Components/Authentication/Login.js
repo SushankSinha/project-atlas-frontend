@@ -14,12 +14,22 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  let user = JSON.parse(sessionStorage.getItem('token'));
+
+  const jwtToken = user.token
+
     async function handleSubmit(e) {
       e.preventDefault();
   
       try {
 
-        const response = await axios.post(`https://atlas-tool-server.onrender.com/login`, {email : email, password : password});
+        const response = await axios.post(`https://atlas-tool-server.onrender.com/login`, {email : email, password : password}, {
+          headers : {
+            'Authorization' : `Bearer ${jwtToken}`,
+            'Content-Type' : 'application/json',
+            'Accept'  : 'application/json'
+          }
+        });
 
         if(response.status === 200){
           window.alert("Login Successful");
