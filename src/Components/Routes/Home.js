@@ -27,6 +27,8 @@ async function LoadHome(){
     );
     if(response.status === 200){
     setData(response.data)
+    }else {
+      navigate('/login')
     }
     
       }catch(error){
