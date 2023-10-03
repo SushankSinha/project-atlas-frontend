@@ -35,7 +35,7 @@ async function LoadHome(){
   
     useEffect(() => {
       LoadHome()
-  }, [token]);
+  }, []);
 
   function HomePage (){
     return (
@@ -70,7 +70,7 @@ async function LoadHome(){
 
   return (
     <div>
-    {data ? (<HomePage/>) : (navigate('/login'))}
+    {data && (<HomePage/>)}
     </div>
   )
 }
