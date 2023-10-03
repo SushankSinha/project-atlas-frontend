@@ -27,12 +27,12 @@ async function LoadHome(){
     );
     if(response.status === 200){
     setData(response.data)
-    }else if(response.status !== 200){
-      navigate('/login')
-    }
-    
+    }    
       }catch(error){
         console.error('Error:', error);
+        if(error.response.status === 401){
+          navigate('/login')
+        }
     }
     };
   
