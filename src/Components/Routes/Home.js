@@ -12,7 +12,9 @@ function Home() {
 
   const navigate = useNavigate();
 
-  const token = localStorage.getItem('token');
+  const token = document.cookie.split('; ').find(cookie => cookie.startsWith('token=')).split('=')[1];
+
+axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   console.log(token)
 /* eslint-disable react-hooks/exhaustive-deps */
   
