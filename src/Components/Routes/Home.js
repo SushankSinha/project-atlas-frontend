@@ -30,7 +30,10 @@ async function LoadHome(){
     
       }catch(error){
         console.error('Error:', error);
+        if(error){
+        navigate('/login')
       }
+    }
     };
   
     useEffect(() => {
