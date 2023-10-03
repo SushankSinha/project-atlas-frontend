@@ -12,7 +12,8 @@ function Home() {
 
   const navigate = useNavigate();
 
-  const token = document.cookie.split('; ').find(cookie => cookie.startsWith('token=')).split('=')[1];
+  const tokenData = document.cookie.split('; ')
+  const token = tokenData.find(cookie => cookie.startsWith('token=')).split('=')[1];
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   console.log(token)
