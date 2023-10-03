@@ -13,6 +13,7 @@ function Home() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
+  console.log(token)
 /* eslint-disable react-hooks/exhaustive-deps */
   
 async function LoadHome(){
