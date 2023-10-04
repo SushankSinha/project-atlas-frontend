@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
+import api from '../api';
 import { Bar } from 'react-chartjs-2';
 
 import { Chart, registerables } from 'chart.js';
@@ -14,7 +14,7 @@ function ChartPage() {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(`https://atlas-tool-server.onrender.com/task`);
+      const res = await api.get(`/task`);
   
       setChartData(res.data);
       console.log(res.data);

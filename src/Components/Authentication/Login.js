@@ -5,8 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import login from "./Photos/login.png";
-import axios from 'axios'
-
+import api from '../api'
 
 function Login() {
 
@@ -19,7 +18,7 @@ function Login() {
   
       try {
 
-        const response = await axios.post(`https://atlas-tool-server.onrender.com/login`, {email : email, password : password}, {
+        const response = await api.post(`/login`, {email : email, password : password}, {
           headers : {
             'Authorization' : `Bearer ${localStorage.getItem('token')}`,
             'Content-Type' : 'application/json',

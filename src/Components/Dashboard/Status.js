@@ -5,7 +5,7 @@ import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
+import api from '../api'
 
 export default function Status(props) {
   const steps = [ `"${props.title}" is assigned`, `"${props.title}" is in progress`, `"${props.title}" is under review`, `"${props.title}" is completed!`];
@@ -17,8 +17,8 @@ export default function Status(props) {
 
   const handleStatusUpdate = async () => {
     try {
-      const response = await axios.put(
-        `https://atlas-tool-server.onrender.com/task/edit/${props.id}`, {status : taskStatus, completion : taskCompletion});
+      const response = await api.put(
+        `/task/edit/${props.id}`, {status : taskStatus, completion : taskCompletion});
         
         if(Object.keys(completed).length === 0){
           setTaskStatus('Assigned')
@@ -42,8 +42,8 @@ export default function Status(props) {
 
   const taskStage = async () => {
     try {
-      const response = await axios.get(
-        `https://atlas-tool-server.onrender.com//task/${props.id}`);
+      const response = await api.get(
+        `//task/${props.id}`);
 
         console.log(response.data)
         if(response.data.status==='Assigned'){

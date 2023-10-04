@@ -13,7 +13,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CodeIcon from "@mui/icons-material/Code";
 import LogoutIcon from "@mui/icons-material/Logout";
-import axios from 'axios'
+import api from '../api';
 
 export default function Sidebar() {
   const [state, setState] = React.useState({
@@ -39,7 +39,7 @@ export default function Sidebar() {
 
   async function userLogout(){
       try {
-          const response = await axios.get(`https://atlas-tool-server.onrender.com/logout`)
+          const response = await api.get(`/logout`)
           if(response.status === 200){
           navigate('/login');
           }

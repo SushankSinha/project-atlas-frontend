@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import axios from "axios";
+import api from '../api';
 
 
 export default function Logs() {
@@ -15,7 +15,7 @@ const columns = [
 
 useEffect(() => {
   (async () => {
-    const res = await axios.get(`https://atlas-tool-server.onrender.com/task`);
+    const res = await api.get(`/task`);
 
     setTableData(res.data);
 

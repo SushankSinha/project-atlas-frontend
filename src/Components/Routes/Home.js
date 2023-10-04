@@ -3,7 +3,7 @@ import timeline from '../Authentication/Photos/timeline.jpg'
 import teamwork from '../Authentication/Photos/teamwork.jpg'
 import meeting from '../Authentication/Photos/meeting.jpg'
 import Typography from "@mui/material/Typography";
-import axios from 'axios';
+import api from '../api';
 import { useNavigate } from "react-router-dom";
 
 function Home() {
@@ -15,20 +15,9 @@ function Home() {
 /* eslint-disable react-hooks/exhaustive-deps */
   
 async function LoadHome(){
-  const tokenData = document.cookie.split('; ')
-  const tokenFind = tokenData.find(cookie => cookie.startsWith('token='));
-  const token = tokenFind.find.split('=')[1];
-  console.log(token)
 
-axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       try{
-        const response = await axios.get('https://atlas-tool-server.onrender.com', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        }
-    );
+        const response = await api.get('');
     if(response.status === 200){
     setData(response.data)
     } else if(response.status === 401){

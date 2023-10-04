@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import register from "./Photos/register.png";
-import axios from "axios";
+import api from '../api'
 
 function Register() {
   const [name, setName] = useState("");
@@ -19,7 +19,7 @@ function Register() {
 
     try{
 
-    const response = await axios.post(`https://atlas-tool-server.onrender.com/register`,  {name : name, email: email, password : password});
+    const response = await api.post(`/register`,  {name : name, email: email, password : password});
 
     if (response.status === 201) {
       window.alert('Account Created');

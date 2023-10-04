@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import Zoom from "@mui/material/Zoom";
-import axios from "axios";
+import api from '../api'
 import Task from "./Task";
 import Status from "./Status";
 import './Task.css'
@@ -45,8 +45,8 @@ function Dashboard() {
   async function submitNote() {
    
     try {
-      const response = await axios.post(
-        `https://atlas-tool-server.onrender.com/task/add-task`,
+      const response = await api.post(
+        `/task/add-task`,
         note
       );
 
@@ -64,7 +64,7 @@ function Dashboard() {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(`https://atlas-tool-server.onrender.com/task`);
+      const res = await api.get(`/task`);
 
       setData(res.data);
       setSearchTask(res.data)

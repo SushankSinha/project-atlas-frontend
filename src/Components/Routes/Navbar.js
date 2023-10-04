@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import ArchitectureIcon from "@mui/icons-material/Architecture";
-import axios from "axios";
+import api from '../api';
 
 function Navbar() {
 
@@ -15,7 +15,7 @@ function Navbar() {
 
   async function userInfo(){
     try {
-      const response = await axios.get('https://atlas-tool-server.onrender.com')
+      const response = await api.get('')
       if(response.status === 200){
         setDisplay(false)
       } else {

@@ -3,7 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import * as bootstrap from "bootstrap";
 import AddEvent from "./AddEvent";
-import axios from "axios";
+import api from '../api'
 import moment from "moment";
 
 
@@ -23,7 +23,7 @@ function Calendar() {
 
   async function handleEventAdd(data) {
     try{
-     await axios.post(`https://atlas-tool-server.onrender.com/calendar/add-event`, data.event);
+     await api.post(`/calendar/add-event`, data.event);
     }catch(error) {
         console.log(error);
     }
@@ -31,9 +31,9 @@ function Calendar() {
 
   async function handleDatesSet(data) {
     try {
-    const response = await axios
+    const response = await api
       .get(
-        `https://atlas-tool-server.onrender.com/calendar`, data.event
+        `/calendar`, data.event
       )
     setEvents(response.data);
       }catch(error) {

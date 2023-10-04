@@ -6,7 +6,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
+import api from '../api'
 
 function Task(props) {
   const [title, setTitle] = useState(props.title);
@@ -17,8 +17,8 @@ function Task(props) {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(
-        `https://atlas-tool-server.onrender.com/task/edit/${props.id}`, {title, content, user});
+      const response = await api.put(
+        `/task/edit/${props.id}`, {title, content, user});
       if (response.status === 201) {
         console.log("Item updated successfully");
         window.location.reload();
@@ -32,7 +32,7 @@ function Task(props) {
 
   async function handleDelete() {
     try {
-      await axios.delete(`https://atlas-tool-server.onrender.com/task/delete/${props.id}`);
+      await api.delete(`/task/delete/${props.id}`);
       window.location.reload();
     } catch (error) {
       console.error("Error:", error.message);
