@@ -15,14 +15,17 @@ function Home() {
 /* eslint-disable react-hooks/exhaustive-deps */
   
 async function LoadHome(){
-  const tokenData = document.cookie.split('. ')
+  const tokenData = document.cookie.split('; ')
   const token = tokenData.find(cookie => cookie.startsWith('token=')).split('=')[1];
   console.log(token)
 
+axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       try{
         const response = await axios.get('https://atlas-tool-server.onrender.com', {
           method: 'GET',
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
         }
     );
     if(response.status === 200){
