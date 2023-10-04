@@ -20,9 +20,7 @@ async function LoadHome(){
         const response = await api.get('/');
     if(response.status === 200){
     setData(response.data)
-    } else if(response.status !== 200) {
-      navigate('https://atlas-tool.netlify.app/login')
-    }  
+    } 
       }catch(error){
         console.error('Error:', error);
     }
