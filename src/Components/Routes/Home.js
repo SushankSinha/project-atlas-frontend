@@ -31,12 +31,11 @@ axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     );
     if(response.status === 200){
     setData(response.data)
-    }    
+    } else if(response.status === 401){
+      navigate('/login')
+    }   
       }catch(error){
         console.error('Error:', error);
-        if(error.response.status === 401){
-          navigate('/login')
-        }
     }
     };
   
