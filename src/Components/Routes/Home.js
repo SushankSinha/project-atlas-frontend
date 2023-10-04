@@ -12,20 +12,17 @@ function Home() {
 
   const navigate = useNavigate();
 
-  const tokenData = document.cookie.split('; ')
-  const token = tokenData.find(cookie => cookie.startsWith('token=')).split('=')[1];
-
-axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  console.log(token)
 /* eslint-disable react-hooks/exhaustive-deps */
   
 async function LoadHome(){
+  const tokenData = document.cookie.split('. ')
+  const token = tokenData.find(cookie => cookie.startsWith('token=')).split('=')[1];
+  console.log(token)
+
       try{
         const response = await axios.get('https://atlas-tool-server.onrender.com', {
           method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
     );
     if(response.status === 200){
