@@ -16,7 +16,8 @@ function Home() {
   
 async function LoadHome(){
   const tokenData = document.cookie.split('; ')
-  const token = tokenData.find(cookie => cookie.startsWith('token=')).split('=')[1];
+  const tokenFind = tokenData.find(cookie => cookie.startsWith('token='));
+  const token = tokenFind.find.split('=')[1];
   console.log(token)
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
