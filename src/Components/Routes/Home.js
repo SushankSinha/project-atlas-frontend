@@ -22,7 +22,9 @@ async function LoadHome(){
     setData(response.data)
     } 
       }catch(error){
-        console.error('Error:', error);
+        if(error){
+          navigate('/login')
+        }
     }
     };
   
