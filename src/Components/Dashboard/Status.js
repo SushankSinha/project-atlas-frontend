@@ -45,7 +45,6 @@ export default function Status(props) {
       const response = await api.get(
         `//task/${props.id}`);
 
-        console.log(response.data)
         if(response.data.status==='Assigned'){
         setTaskCompletion(25)
         }else if(response.data.status==='In Progress'){

@@ -50,8 +50,6 @@ function Dashboard() {
     try {
       const response = await api.post(`/task/add-task`, note);
 
-      console.log(response.data.taskDetails.content);
-
       if (response.status === 201) {
         window.alert("Task created");
       }
