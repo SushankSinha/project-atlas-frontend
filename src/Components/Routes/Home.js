@@ -20,10 +20,10 @@ function Home() {
       }
     } catch (error) {
       console.log(error);
-      if (error) {
-        await api.get(`/logout`);
-        navigate("/login");
-      }
+      // if (error) {
+      //   await api.get(`/logout`);
+      //   // navigate("/login");
+      // }
     }
   }
 

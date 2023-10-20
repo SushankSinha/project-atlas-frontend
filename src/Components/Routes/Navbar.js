@@ -32,8 +32,7 @@ function Navbar() {
 
   async function userLogout(){
     try {
-        await api.get(`/logout`)
-        window.location.reload();
+        await api.get(`/logout`);
     } catch (error) {
         console.log(error)
     }
