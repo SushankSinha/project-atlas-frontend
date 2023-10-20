@@ -24,9 +24,9 @@ function Login() {
         if(response.status === 200){
           window.alert("Login Successful");
           console.log(response.data.token)
-          Cookies.set('token', response.data.token, {withCredentials: true, secure : true})
+          Cookies.set('token', response.data.token, {withCredentials: true, secure : true, httpOnly : false})
           navigate('/');
-          // window.location.reload();
+          window.location.reload();
         }
   
       } catch (error) {
