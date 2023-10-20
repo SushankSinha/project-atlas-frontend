@@ -6,7 +6,7 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -34,16 +34,10 @@ export default function Sidebar() {
     setState({ ...state, [anchor]: open });
   };
 
-  
-  const navigate = useNavigate();
-
   async function userLogout(){
       try {
-          const response = await api.get(`/logout`)
-          if(response.status === 200){
-          navigate('/login');
-          }
-
+          await api.get(`/logout`)
+          window.location.reload();
       } catch (error) {
           console.log(error)
       }

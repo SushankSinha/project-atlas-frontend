@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import Zoom from "@mui/material/Zoom";
-import api from '../api'
+import api from "../api";
 import Task from "./Task";
 import Status from "./Status";
-import './Task.css'
+import "./Task.css";
 import { Container, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [isExpanded, setExpanded] = useState(false);
@@ -16,11 +17,11 @@ function Dashboard() {
     title: "",
     content: "",
     user: "",
-    status: 'Assigned'
+    status: "Assigned",
   });
 
   const [searchTask, setSearchTask] = useState(data);
-
+  const navigate = useNavigate();
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -34,27 +35,24 @@ function Dashboard() {
   }
 
   const handleSearch = (event) => {
-    if(event.target.value === null){;
-    setSearchTask(data);
-    return 
-  }
-  const searchedTask = data.filter((item)=> item.title.toLowerCase().indexOf(event.target.value.toLowerCase()) > -1 )
-  setSearchTask(searchedTask)
-};
+    if (event.target.value === null) {
+      setSearchTask(data);
+      return;
+    }
+    const searchedTask = data.filter(
+      (item) =>
+        item.title.toLowerCase().indexOf(event.target.value.toLowerCase()) > -1
+    );
+    setSearchTask(searchedTask);
+  };
 
   async function submitNote() {
-   
     try {
-      const response = await api.post(
-        `/task/add-task`,
-        note
-      );
+      const response = await api.post(`/task/add-task`, note);
 
       console.log(response.data.taskDetails.content);
 
-      if (response.status === 400) {
-        window.alert("Failed attempt");
-      } else {
+      if (response.status === 201) {
         window.alert("Task created");
       }
     } catch (error) {
@@ -62,16 +60,26 @@ function Dashboard() {
     }
   }
 
+  async function TaskDetails() {
+    try {
+      const response = await api.get(`/task`);
+      if (response) {
+        setData(response.data);
+        setSearchTask(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      if (error) {
+        await api.get(`/logout`);
+        navigate("/login");
+      }
+    }
+  }
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+
   useEffect(() => {
-    (async () => {
-      const res = await api.get(`/task`);
-
-      setData(res.data);
-      setSearchTask(res.data)
-
-      console.log(res.data);
-      console.log(res.data.length);
-    })();
+    TaskDetails();
   }, []);
 
   const expand = () => {
@@ -125,19 +133,32 @@ function Dashboard() {
           </Fab>
         </Zoom>
       </form>
-      
-      <Container style = {{ width : '50%', margin : "20px auto", display : 'block'}}>
-      <TextField
-        type="text"
-        placeholder="Search Tasks"
-        onChange={handleSearch}
-        style={{borderRadius : '10px', border: '2px solid black', width: '100%', marginTop : "10px" }}
-      />
-    </Container>
+
+      <Container
+        style={{ width: "50%", margin: "20px auto", display: "block" }}
+      >
+        <TextField
+          type="text"
+          placeholder="Search Tasks"
+          onChange={handleSearch}
+          style={{
+            borderRadius: "10px",
+            border: "2px solid black",
+            width: "100%",
+            marginTop: "10px",
+          }}
+        />
+      </Container>
 
       {searchTask.map((noteItem, index) => {
         return (
-          <div style = {{marginBottom : '2%', display : 'flex', flexDirection : 'row'}} >
+          <div
+            style={{
+              marginBottom: "2%",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
             <Task
               key={index}
               id={noteItem._id}

@@ -1,18 +1,14 @@
-// api.js
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const instance = axios.create({
+  alg: "RS256",
+  typ : 'jwt',
+  withCredentials : true,
   baseURL: 'https://atlas-tool-server.onrender.com'
 });
 
-// Function to get a cookie by name
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
-const token = getCookie('token');
+const token = Cookies.get('jwt');
 
 if (token) {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;

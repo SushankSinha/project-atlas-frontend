@@ -22,9 +22,9 @@ function ForgetPassword() {
         }} elevation={10}>
                <h3 style={{ margin: "10px" }}>Reset Password</h3>
 
-        <image style = {{height: "300px", 
+        <picture style = {{height: "300px", 
         backgroundImage : `url(${forget})`,
-         backgroundRepeat: 'no-repeat', backgroundSize : 'contain', backgroundPosition: 'center'}} />
+         backgroundRepeat: 'no-repeat', backgroundSize : 'contain', backgroundPosition: 'center'}} alt="Forgot Password" />
  
         <TextField
           id="outlined-basic"

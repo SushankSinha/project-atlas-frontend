@@ -53,7 +53,7 @@ function Register() {
       >
         <h2 style={{ margin: "20px auto" }}>Sign Up</h2>
 
-        <image
+        <picture
           style={{textAlign: 'center',
           width: '100%',
             height: "30vh",
@@ -62,6 +62,7 @@ function Register() {
             backgroundSize: "contain",
             backgroundPosition: 'center'
           }}
+          alt="Register"
         />
 
         <form method="POST">

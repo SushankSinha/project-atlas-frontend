@@ -11,30 +11,28 @@ import api from '../api';
 
 function Navbar() {
 
-  const[display, setDisplay] = useState(true);
+  const[display, setDisplay] = useState(false);
 
   async function userInfo(){
     try {
-      const response = await api.get('')
-      if(response.status === 200){
-        setDisplay(false)
-      } else {
-        setDisplay(true)
+      const response = await api.get('/')
+      if(response.status===200){
+        setDisplay(true);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   useEffect(()=>{
     userInfo()
-  },[display])
+  },[])
  
   return (
     <Box>
       <AppBar position="static">
         <Toolbar>
-          <Sidebar/>
+          { display && (<Sidebar/>)}
           <Link to="/" style={{ color: "white", textDecoration: "none" }}>
             <ArchitectureIcon style={{ marginLeft: "1%" }} />
           </Link>
@@ -54,10 +52,10 @@ function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {/* News */}
           </Typography>
-          {display && (<><Link to="/login" style={{ color: "white", textDecoration: "none" }}>
+          {display === false? (<><Link to="/login" style={{ color: "white", textDecoration: "none" }}>
           <Button color="inherit">Login</Button></Link>
           <Link to="/register" style={{ color: "white", textDecoration: "none" }}>
-          <Button color="inherit">Register</Button></Link></>)}
+          <Button color="inherit">Register</Button></Link></>) : null }
         </Toolbar>
       </AppBar>
     </Box>

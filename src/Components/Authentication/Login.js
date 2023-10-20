@@ -28,7 +28,8 @@ function Login() {
 
         if(response.status === 200){
           window.alert("Login Successful");
-          navigate('/')
+          navigate('/');
+          window.location.reload();
         }
   
       } catch (error) {
@@ -59,7 +60,7 @@ function Login() {
       >
         <h2 style={{ margin: "20px auto", display : 'block' }}>Login</h2>
 
-        <image
+        <picture
           style={{textAlign: 'center',
           width: '100%',
             height: "300px",
@@ -68,6 +69,7 @@ function Login() {
             backgroundSize: "contain",
             backgroundPosition: 'center'
           }}
+          alt="Login"
         />
 
         <TextField
