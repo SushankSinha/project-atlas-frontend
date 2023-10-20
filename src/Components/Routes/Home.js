@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import timeline from "../Authentication/Photos/timeline.jpg";
 import teamwork from "../Authentication/Photos/teamwork.jpg";
 import meeting from "../Authentication/Photos/meeting.jpg";
 import Typography from "@mui/material/Typography";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie';
-import jwt_decode from 'jwt-decode'
 
 function Home() {
-
-  const [userId, setUserId]= useState(null);
-  const [user, setUser]= useState("");
 
   const navigate = useNavigate();
 
@@ -39,7 +34,7 @@ function Home() {
   return (
     <div>
       <Typography style={{ margin: "2%", fontWeight: "bold" }}>
-        <h1 align={"center"}> Welcome back {user}! </h1>
+        <h1 align={"center"}> Welcome back! </h1>
       </Typography>
       <div
         style={{ margin: "5% auto", display: "block" }}
