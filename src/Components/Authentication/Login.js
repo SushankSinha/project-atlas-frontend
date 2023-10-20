@@ -24,7 +24,7 @@ function Login() {
         if(response.status === 200){
           window.alert("Login Successful");
           console.log(response.data.token)
-          Cookies.set('token', response.data.token, {withCredentials: true, secure : true, httpOnly : false})
+          Cookies.set('token', response.data.token)
           navigate('/');
           window.location.reload();
         }
