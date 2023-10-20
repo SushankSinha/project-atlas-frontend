@@ -12,12 +12,14 @@ import api from '../api';
 function Navbar() {
 
   const[display, setDisplay] = useState(false);
+  const[displayAuth, setDisplayAuth] = useState(true);
 
   async function userInfo(){
     try {
       const response = await api.get('/')
       if(response.status===200){
         setDisplay(true);
+        setDisplayAuth(false);
       }
     } catch (error) {
       console.log(error);
@@ -26,7 +28,17 @@ function Navbar() {
 
   useEffect(()=>{
     userInfo()
-  },[])
+  },[]);
+
+  async function userLogout(){
+    try {
+        await api.get(`/logout`)
+        window.location.reload();
+    } catch (error) {
+        console.log(error)
+    }
+    
+}
  
   return (
     <Box>
@@ -52,10 +64,11 @@ function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {/* News */}
           </Typography>
-          {display === false? (<><Link to="/login" style={{ color: "white", textDecoration: "none" }}>
+          {displayAuth === true? (<><Link to="/login" style={{ color: "white", textDecoration: "none" }}>
           <Button color="inherit">Login</Button></Link>
           <Link to="/register" style={{ color: "white", textDecoration: "none" }}>
-          <Button color="inherit">Register</Button></Link></>) : null }
+          <Button color="inherit">Register</Button></Link></>) : (<Link to="/login" style={{ color: "white", textDecoration: "none" }}>
+          <Button onClick={userLogout} color="inherit">Logout</Button></Link>) }
         </Toolbar>
       </AppBar>
     </Box>
