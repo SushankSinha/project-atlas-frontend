@@ -4,11 +4,11 @@ import teamwork from "../Authentication/Photos/teamwork.jpg";
 import meeting from "../Authentication/Photos/meeting.jpg";
 import Typography from "@mui/material/Typography";
 import api from "../api";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 function Home() {
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   /* eslint-disable react-hooks/exhaustive-deps */
 
