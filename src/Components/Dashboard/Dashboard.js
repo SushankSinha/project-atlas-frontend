@@ -61,7 +61,7 @@ function Dashboard() {
   async function TaskDetails() {
     try {
       const response = await api.get(`/task`);
-      if (response) {
+      if (response.status === 200) {
         setData(response.data);
         setSearchTask(response.data);
       }

@@ -33,7 +33,9 @@ function Calendar() {
   async function handleDatesSet(data) {
     try {
       const response = await api.get(`/calendar`, data.event);
+      if(response.status === 200){
       setEvents(response.data);
+      }
     } catch (error) {
       console.log(error);
       if (error) {
