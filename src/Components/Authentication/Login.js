@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import login from "./Photos/login.png";
 import api from '../api'
+import Cookies from 'js-cookie';
 
 function Login() {
 
@@ -18,16 +19,11 @@ function Login() {
   
       try {
 
-        const response = await api.post(`/login`, {email : email, password : password}, {
-          headers : {
-            'Authorization' : `Bearer ${localStorage.getItem('token')}`,
-            'Content-Type' : 'application/json',
-            'Accept'  : 'application/json'
-          }
-        });
+        const response = await api.post(`/login`, {email : email, password : password});
 
         if(response.status === 200){
           window.alert("Login Successful");
+          Cookies.set('token', response.data.token, {withCredentials: true, secure : true})
           navigate('/');
           window.location.reload();
         }
