@@ -30,7 +30,6 @@ function Login() {
             httpOnly : true
           })
           navigate('/');
-          window.location.reload();
         }
   
       } catch (error) {
