@@ -19,7 +19,7 @@ function Login() {
   
       try {
 
-        const response = await api.post(`/login`, {email : email, password : password});
+        const response = await api.post(`/login`, {email : email, password : password}, {withCredentials : true});
 
         if(response.status === 200){
           window.alert("Login Successful");
