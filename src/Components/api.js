@@ -12,7 +12,7 @@ const instance = axios.create({
 const token = Cookies.get('jwt');
 
 if (token) {
-  instance.defaults.headers.common['Authorization'] = (`Bearer ${token}`,{'Content-Type': 'application/json', Accept: 'application/json' });
+  instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
 
 export default instance;

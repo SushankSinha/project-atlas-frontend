@@ -19,12 +19,24 @@ function Login() {
   
       try {
 
-        const response = await api.post(`/login`, {email : email, password : password});
+        const response = await api.post(`/login`, {email : email, password : password}, {
+          method : 'POST',
+          credentials : 'include',
+          headers : {
+            Accept : 'application/json',
+            'Content-Type' : 'application/json'
+          }
+        });
 
         if(response.status === 200){
           window.alert("Login Successful");
           console.log(response.data.token)
-          Cookies.set('token', response.data.token)
+          Cookies.set('token', response.data.token, {
+            withCredentials: true,
+            secure : true,
+            httpOnly : true,
+            path : '/'
+          })
           navigate('/');
           window.location.reload();
         }
