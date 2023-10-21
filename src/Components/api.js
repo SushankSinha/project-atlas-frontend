@@ -11,6 +11,9 @@ const instance = axios.create({
 });
 
 const token = Cookies.get('jwt');
+console.log("jwt", token)
+const tokenVar = Cookies.get('token');
+console.log("tokenVar", tokenVar)
 
 if (token) {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
