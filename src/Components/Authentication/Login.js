@@ -26,7 +26,7 @@ function Login() {
           Cookies.set('token', response.data.token, {
             withCredentials: true,
             secure : true,
-            httpOnly : false
+            httpOnly : true
           })
           navigate('/');
         }

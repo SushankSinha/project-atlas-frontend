@@ -6,7 +6,7 @@ const instance = axios.create({
   typ : 'jwt',
   withCredentials : true,
   secure : true,
-  httpOnly : false,
+  httpOnly : true,
   baseURL: 'https://atlas-tool-server.onrender.com'
 });
 
