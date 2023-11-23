@@ -6,7 +6,7 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -14,6 +14,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import CodeIcon from "@mui/icons-material/Code";
 import LogoutIcon from "@mui/icons-material/Logout";
 import api from '../api';
+import Cookies from "js-cookie";
 
 export default function Sidebar() {
   const [state, setState] = React.useState({
@@ -34,14 +35,21 @@ export default function Sidebar() {
     setState({ ...state, [anchor]: open });
   };
 
+
+  const navigate = useNavigate()
+
   async function userLogout(){
       try {
-          await api.get(`/logout`)
-          window.location.reload();
+         const response = await api.get(`/logout`);
+         if(response.status === 200){
+          alert('Logged Out Successfully')
+          localStorage.removeItem('user');
+          Cookies.remove('token')
+          navigate('/login')
+        }
       } catch (error) {
           console.log(error)
       }
-      
   }
 
   const list = (anchor) => (

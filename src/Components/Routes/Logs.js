@@ -18,15 +18,14 @@ export default function Logs() {
   async function LogFunction() {
     try {
       const response = await api.get(`/task`);
-      if (response.status === 200) {
-        setTableData(response.data);
-      }
+      if(localStorage.getItem('user')){
+        if (response.status === 200) {
+          setTableData(response.data);
+        }}else {
+          navigate("/login");
+        }
     } catch (error) {
       console.log(error);
-      if (error) {
-        await api.get(`/logout`);
-        navigate("/login");
-      }
     }
   }
 

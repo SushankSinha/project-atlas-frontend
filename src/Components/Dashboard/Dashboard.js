@@ -47,6 +47,7 @@ function Dashboard() {
   };
 
   async function submitNote() {
+    if(localStorage.getItem('user')){
     try {
       const response = await api.post(`/task/add-task`, note);
 
@@ -57,14 +58,18 @@ function Dashboard() {
       console.error("Error:", error.message);
     }
   }
+  }
 
   async function TaskDetails() {
     try {
       const response = await api.get(`/task`);
-      if (response.status === 200) {
-        setData(response.data);
-        setSearchTask(response.data);
-      }
+      if(localStorage.getItem('user')){
+        if (response.status === 200) {
+          setData(response.data);
+          setSearchTask(response.data);
+        }}else {
+          navigate("/login");
+        }
     } catch (error) {
       console.log(error);
       if (error) {

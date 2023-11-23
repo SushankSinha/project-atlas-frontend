@@ -15,15 +15,14 @@ function ChartPage() {
   async function ChartFunction() {
     try {
       const response = await api.get(`/task`);
-      if (response.status === 200) {
-        setChartData(response.data);
-      }
+      if(localStorage.getItem('user')){
+        if (response.status === 200) {
+          setChartData(response.data);
+        }}else {
+          navigate("/login");
+        }
     } catch (error) {
       console.log(error);
-      if (error) {
-        await api.get(`/logout`);
-        navigate("/login");
-      }
     }
   }
 

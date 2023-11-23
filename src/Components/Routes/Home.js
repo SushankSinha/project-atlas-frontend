@@ -15,15 +15,14 @@ function Home() {
   async function LoadHome() {
     try {
       const response = await api.get("/");
+      if(localStorage.getItem('user')){
       if (response.status === 200) {
         console.log("User Authorized");
+      }}else {
+        navigate("/login");
       }
     } catch (error) {
       console.log(error);
-      if (error) {
-        await api.get(`/logout`);
-        navigate("/login");
-      }
     }
   }
 
