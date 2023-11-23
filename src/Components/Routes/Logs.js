@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import api from "../api";
-import { useNavigate } from "react-router-dom";
 
 export default function Logs() {
   const [tableData, setTableData] = useState([]);
-  const navigate = useNavigate();
 
   const columns = [
     { field: "title", headerName: "Task Name", width: 200 },

@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import api from "../api";
 import { Bar } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import { useNavigate } from "react-router-dom";
 
 Chart.register(...registerables);
 
 function ChartPage() {
   const [chartData, setChartData] = useState([]);
-  const navigate = useNavigate();
 
   /* eslint-disable react-hooks/exhaustive-deps */
 

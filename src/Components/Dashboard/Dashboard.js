@@ -7,7 +7,6 @@ import Task from "./Task";
 import Status from "./Status";
 import "./Task.css";
 import { Container, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [isExpanded, setExpanded] = useState(false);
@@ -21,7 +20,6 @@ function Dashboard() {
   });
 
   const [searchTask, setSearchTask] = useState(data);
-  const navigate = useNavigate();
 
   function handleChange(event) {
     const { name, value } = event.target;
