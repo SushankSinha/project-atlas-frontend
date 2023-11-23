@@ -19,7 +19,7 @@ function Register() {
 
     try{
 
-    const response = await api.post(`/register`,  {name : name, email: email, password : password});
+    const response = await api.post(`/register`,  {name : name, email: email, password : password}, {credentials : 'include'});
 
     if (response.status === 201) {
       window.alert('Account Created');

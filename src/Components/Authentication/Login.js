@@ -28,7 +28,6 @@ function Login() {
             withCredentials: true,
             secure : true
           })
-          if(localStorage.getItem('user'))
           navigate('/');
         }
   
