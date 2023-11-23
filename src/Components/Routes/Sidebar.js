@@ -43,7 +43,7 @@ export default function Sidebar() {
          const response = await api.get(`/logout`);
          if(response.status === 200){
           alert('Logged Out Successfully')
-          localStorage.removeItem('user');
+          .removeItem('user');
           Cookies.remove('token')
           navigate('/login')
         }
