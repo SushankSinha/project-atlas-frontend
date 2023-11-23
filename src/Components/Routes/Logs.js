@@ -16,7 +16,6 @@ export default function Logs() {
     /* eslint-disable react-hooks/exhaustive-deps */
 
   async function LogFunction() {
-    if(localStorage.getItem('user')){
     try {
       const response = await api.get(`/task`);
         if (response.status === 200) {
@@ -26,16 +25,10 @@ export default function Logs() {
       console.log(error);
     }
   }
-  }
 
   useEffect(() => {
     LogFunction();
   }, []);
-
-  if(!localStorage.getItem('user')){
-    navigate("/login");
-  }
-
 
   return (
     <DataGrid

@@ -13,7 +13,6 @@ function Home() {
   /* eslint-disable react-hooks/exhaustive-deps */
 
   async function LoadHome() {
-    if(localStorage.getItem('user')){
     try {
       const response = await api.get("/");
       if (response.status === 200) {
@@ -23,16 +22,10 @@ function Home() {
       console.log(error);
     }
   }
-  }
 
   useEffect(() => {
     LoadHome();
   }, []);
-
-  if(!localStorage.getItem('user')){
-    navigate("/login");
-  }
-
 
   return (
     <div>

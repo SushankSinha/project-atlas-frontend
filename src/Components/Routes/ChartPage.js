@@ -13,7 +13,6 @@ function ChartPage() {
   /* eslint-disable react-hooks/exhaustive-deps */
 
   async function ChartFunction() {
-    if(localStorage.getItem('user')){
     try {
       const response = await api.get(`/task`);
         if (response.status === 200) {
@@ -22,16 +21,11 @@ function ChartPage() {
     } catch (error) {
       console.log(error);
     }
-  }
 }
 
   useEffect(() => {
     ChartFunction();
   }, []);
-
-  if(!localStorage.getItem('user')){
-    navigate("/login");
-  }
 
   const Bardata = {
     labels: chartData?.map((x) => x.title),

@@ -18,7 +18,6 @@ function Navbar() {
   const navigate = useNavigate()
 
   async function userInfo(){
-    if(localStorage.getItem('user')){
     try {
       const response = await api.get('/')
       if(response.status===200){
@@ -29,15 +28,10 @@ function Navbar() {
       console.log(error);
     }
   }
-  }
 
   useEffect(()=>{
     userInfo();
   });
-
-  if(!localStorage.getItem('user')){
-    navigate("/login");
-  }
 
   async function userLogout(){
     try {

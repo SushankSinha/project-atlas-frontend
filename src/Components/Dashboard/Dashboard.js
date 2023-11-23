@@ -47,7 +47,6 @@ function Dashboard() {
   };
 
   async function submitNote() {
-    if(localStorage.getItem('user')){
     try {
       const response = await api.post(`/task/add-task`, note);
 
@@ -58,10 +57,8 @@ function Dashboard() {
       console.error("Error:", error.message);
     }
   }
-  }
 
   async function TaskDetails() {
-    if(localStorage.getItem('user')){
     try {
       const response = await api.get(`/task`);
         if (response.status === 200) {
@@ -72,17 +69,12 @@ function Dashboard() {
       console.log(error);
     }
   }
-  }
 
   /* eslint-disable react-hooks/exhaustive-deps */
 
   useEffect(() => {
     TaskDetails();
   }, []);
-
-  if(!localStorage.getItem('user')){
-    navigate("/login");
-  }
 
   const expand = () => {
     setExpanded(true);
