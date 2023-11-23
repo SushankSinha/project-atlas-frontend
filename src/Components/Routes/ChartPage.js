@@ -13,22 +13,25 @@ function ChartPage() {
   /* eslint-disable react-hooks/exhaustive-deps */
 
   async function ChartFunction() {
+    if(localStorage.getItem('user')){
     try {
       const response = await api.get(`/task`);
-      if(localStorage.getItem('user')){
         if (response.status === 200) {
           setChartData(response.data);
-        }}else {
-          navigate("/login");
         }
     } catch (error) {
       console.log(error);
     }
   }
+}
 
   useEffect(() => {
     ChartFunction();
   }, []);
+
+  if(!localStorage.getItem('user')){
+    navigate("/login");
+  }
 
   const Bardata = {
     labels: chartData?.map((x) => x.title),

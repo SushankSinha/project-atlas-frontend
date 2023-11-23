@@ -16,22 +16,26 @@ export default function Logs() {
     /* eslint-disable react-hooks/exhaustive-deps */
 
   async function LogFunction() {
+    if(localStorage.getItem('user')){
     try {
       const response = await api.get(`/task`);
-      if(localStorage.getItem('user')){
         if (response.status === 200) {
           setTableData(response.data);
-        }}else {
-          navigate("/login");
         }
     } catch (error) {
       console.log(error);
     }
   }
+  }
 
   useEffect(() => {
     LogFunction();
   }, []);
+
+  if(!localStorage.getItem('user')){
+    navigate("/login");
+  }
+
 
   return (
     <DataGrid

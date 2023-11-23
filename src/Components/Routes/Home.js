@@ -13,22 +13,26 @@ function Home() {
   /* eslint-disable react-hooks/exhaustive-deps */
 
   async function LoadHome() {
+    if(localStorage.getItem('user')){
     try {
       const response = await api.get("/");
-      if(localStorage.getItem('user')){
       if (response.status === 200) {
         console.log("User Authorized");
-      }}else {
-        navigate("/login");
       }
     } catch (error) {
       console.log(error);
     }
   }
+  }
 
   useEffect(() => {
     LoadHome();
   }, []);
+
+  if(!localStorage.getItem('user')){
+    navigate("/login");
+  }
+
 
   return (
     <div>

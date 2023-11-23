@@ -61,22 +61,17 @@ function Dashboard() {
   }
 
   async function TaskDetails() {
+    if(localStorage.getItem('user')){
     try {
       const response = await api.get(`/task`);
-      if(localStorage.getItem('user')){
         if (response.status === 200) {
           setData(response.data);
           setSearchTask(response.data);
-        }}else {
-          navigate("/login");
         }
     } catch (error) {
       console.log(error);
-      if (error) {
-        await api.get(`/logout`);
-        navigate("/login");
-      }
     }
+  }
   }
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -84,6 +79,10 @@ function Dashboard() {
   useEffect(() => {
     TaskDetails();
   }, []);
+
+  if(!localStorage.getItem('user')){
+    navigate("/login");
+  }
 
   const expand = () => {
     setExpanded(true);

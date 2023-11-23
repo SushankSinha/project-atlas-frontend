@@ -18,23 +18,26 @@ function Navbar() {
   const navigate = useNavigate()
 
   async function userInfo(){
+    if(localStorage.getItem('user')){
     try {
       const response = await api.get('/')
-      if(localStorage.getItem('user')){
       if(response.status===200){
         setDisplay(true);
         setDisplayAuth(false);
-      }}else{
-        navigate('/')
       }
     } catch (error) {
       console.log(error);
     }
   }
+  }
 
   useEffect(()=>{
     userInfo();
   });
+
+  if(!localStorage.getItem('user')){
+    navigate("/login");
+  }
 
   async function userLogout(){
     try {
