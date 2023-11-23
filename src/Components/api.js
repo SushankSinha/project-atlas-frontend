@@ -9,7 +9,7 @@ const instance = axios.create({
   baseURL: 'https://atlas-tool-server.onrender.com'
 });
 
-const token = Cookies.get('jwt');
+const token = Cookies.get('token');
 
 if (token) {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
