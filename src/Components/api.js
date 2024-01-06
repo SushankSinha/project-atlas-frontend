@@ -6,7 +6,7 @@ const instance = axios.create({
   typ : 'jwt',
   withCredentials : true,
   secure : true,
-  baseURL: 'https://atlas-tool-server.onrender.com'
+  baseURL: "https://atlas-tool-server.onrender.com"
 });
 
 const token = Cookies.get('token');

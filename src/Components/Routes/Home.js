@@ -1,15 +1,28 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import timeline from "../Authentication/Photos/timeline.jpg";
 import teamwork from "../Authentication/Photos/teamwork.jpg";
 import meeting from "../Authentication/Photos/meeting.jpg";
-import Typography from "@mui/material/Typography";
 import api from "../api";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
-
-  /* eslint-disable react-hooks/exhaustive-deps */
+  const [userName, setUserName] = useState(null);
+  const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+  
+  async function userNameFunc(){
+    try {
+      const response = await api.get(`/user/${token}`);
+      if (response.status === 200) {
+        setUserName(response.data.name)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function LoadHome() {
+    if(token){
     try {
       const response = await api.get("/");
       if (response.status === 200) {
@@ -18,17 +31,19 @@ function Home() {
     } catch (error) {
       console.log(error);
     }
+  }else if (!token){
+    navigate("/login")
   }
+}
 
   useEffect(() => {
     LoadHome();
-  }, []);
+    userNameFunc();
+  });
 
   return (
     <div>
-      <Typography style={{ margin: "2%", fontWeight: "bold" }}>
-        <h1 align={"center"}> Welcome back! </h1>
-      </Typography>
+        <h1 style={{ margin: "2%", fontWeight: "bold" }} align={"center"}> Welcome {userName} </h1>
       <div
         style={{ margin: "5% auto", display: "block" }}
         id="carouselExampleAutoplaying"

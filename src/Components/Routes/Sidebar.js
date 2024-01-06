@@ -6,15 +6,13 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CodeIcon from "@mui/icons-material/Code";
-import LogoutIcon from "@mui/icons-material/Logout";
-import api from '../api';
-import Cookies from "js-cookie";
+// import GroupsIcon from "@mui/icons-material/Groups";
 
 export default function Sidebar() {
   const [state, setState] = React.useState({
@@ -34,23 +32,6 @@ export default function Sidebar() {
 
     setState({ ...state, [anchor]: open });
   };
-
-
-  const navigate = useNavigate()
-
-  async function userLogout(){
-      try {
-         const response = await api.get(`/logout`);
-         if(response.status === 200){
-          alert('Logged Out Successfully')
-          .removeItem('user');
-          Cookies.remove('token')
-          navigate('/login')
-        }
-      } catch (error) {
-          console.log(error)
-      }
-  }
 
   const list = (anchor) => (
     <Box
@@ -103,20 +84,21 @@ export default function Sidebar() {
         </ListItem>
       </List>
       <Divider sx = {{borderBottomWidth : 3, backgroundColor : 'black'}} />
-      <List style={{ margin: "10px", padding: "10px" }}>
+      {/* <List style={{ margin: "10px", padding: "10px" }}>
         <ListItem disablePadding>
-        <Link
-            style={{ textDecoration: "none", color: "black" }}
+        <Link 
+            style={{ textDecoration: "none", color: "black" }} to="/meeting
+            "
           >
-          <ListItemButton onClick={userLogout}>
+          <ListItemButton >
             {" "}
-            <LogoutIcon style={{ margin: "10px" }} />
+            <GroupsIcon style={{ margin: "10px" }} />
             
-              Logout{" "}
+              Meeting{" "}
           </ListItemButton>
           </Link>
         </ListItem>
-      </List>
+      </List> */}
     </Box>
   );
 

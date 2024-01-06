@@ -7,13 +7,14 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import api from '../api'
+import { useAuth } from '../Context/AuthContext';
 
 function Task(props) {
   const [title, setTitle] = useState(props.title);
   const [content, setContent] = useState(props.content);
   const [user, setUser] = useState(props.user);
   const [isclicked, setIsClicked] = useState(false);
-
+  const { userRole } = useAuth();
 
   const handleUpdate = async () => {
     try {
@@ -55,7 +56,7 @@ function Task(props) {
           Assigned to : <b style={{ color: "red" }}>{props.user}</b>
         </Typography>
       </CardContent>
-      <CardActions style = {{margin: '2px auto', display : 'block'}}>
+      {userRole.role === "projectAdmin" && (<CardActions style = {{margin: '2px auto', display : 'block'}}>
         <Button
           onClick={() => {
             toggleEdit()
@@ -72,7 +73,7 @@ function Task(props) {
         >
           <DeleteIcon style={{ margin: 'auto 150%' }} />
         </Button>
-      </CardActions>
+      </CardActions>)}
       {isclicked && (
         <div>
           <input

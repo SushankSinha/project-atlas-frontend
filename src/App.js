@@ -9,11 +9,13 @@ import Logs from "./Components/Routes/Logs";
 import ChartPage from "./Components/Routes/ChartPage";
 import NotFound from "./Components/Routes/NotFound";
 import MainCalendar from "./Components/Calendar/MainCalendar";
+import { AuthProvider } from './Components/Context/AuthContext.js';
 
 function App() {
 
   return (
     <div className="App">
+    <AuthProvider>
       <Navbar />
       <Routes>
         <Route path="/register" element={<Register />} />
@@ -27,6 +29,7 @@ function App() {
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate replace to="/404" />} />
       </Routes>
+      </AuthProvider>
     </div>
   );
 }

@@ -3,33 +3,22 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
-import login from "./Photos/login.png";
-import api from '../api'
-import Cookies from 'js-cookie';
+import { Link} from "react-router-dom";
+import loginImg from "./Photos/login.png";
+import { useAuth } from '../Context/AuthContext';
 
 function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
     async function handleSubmit(e) {
       e.preventDefault();
   
       try {
 
-        const response = await api.post(`/login`, {email : email, password : password}, {credentials : 'include'});
-
-        if(response.status === 200){
-          localStorage.setItem('user', response.data.user)
-          window.alert("Login Successful");
-          Cookies.set('token', response.data.token, {
-            withCredentials: true,
-            secure : true
-          })
-          navigate('/');
-        }
+        await login({email, password}, {credentials : 'include'});
   
       } catch (error) {
         alert("Invalid credentials")
@@ -63,7 +52,7 @@ function Login() {
           style={{textAlign: 'center',
           width: '100%',
             height: "300px",
-            backgroundImage: `url(${login})`,
+            backgroundImage: `url(${loginImg})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
             backgroundPosition: 'center'
@@ -72,8 +61,9 @@ function Login() {
         />
 
         <TextField
-          id="outlined-basic"
+          id="outlined-basic-email"
           label="Email"
+          type="email"
           variant="outlined"
           style={{ margin: "10px" }}
           name = 'email'
@@ -84,6 +74,7 @@ function Login() {
         <TextField
           id="outlined-basic"
           label="Password"
+          type="password"
           variant="outlined"
           style={{ margin: "10px" }}
           name = 'password'

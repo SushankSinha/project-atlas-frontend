@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import api from "../api";
+import ExcelExport from './ExcelExport';
+import { useAuth } from '../Context/AuthContext';
 
 export default function Logs() {
   const [tableData, setTableData] = useState([]);
+  const { logout } = useAuth();
+  const token = localStorage.getItem('token');
 
   const columns = [
     { field: "title", headerName: "Task Name", width: 200 },
@@ -14,6 +18,7 @@ export default function Logs() {
     /* eslint-disable react-hooks/exhaustive-deps */
 
   async function LogFunction() {
+    if(token){
     try {
       const response = await api.get(`/task`);
         if (response.status === 200) {
@@ -22,6 +27,9 @@ export default function Logs() {
     } catch (error) {
       console.log(error);
     }
+  }else if(!token){
+    logout();
+  }
   }
 
   useEffect(() => {
@@ -29,6 +37,7 @@ export default function Logs() {
   }, []);
 
   return (
+    <>
     <DataGrid
       sx={{
         ".MuiDataGrid-columnHeaderTitle": {
@@ -48,7 +57,6 @@ export default function Logs() {
           color: "primary.main",
         },
       }}
-      // style = {{margin : '5% auto', display : 'block', height: 'fit-content', maxWidth: '600px', backgroundColor : 'bisque'}}
       rows={tableData}
       getRowId={(row) => row._id}
       columns={columns}
@@ -59,5 +67,9 @@ export default function Logs() {
       }}
       pageSizeOptions={[5, 10]}
     />
+    <div style={{margin : "5% auto", display : "block"}}>
+    <ExcelExport excelData={tableData} fileName = {"Data Log"} />
+    </div>
+    </>
   );
 }

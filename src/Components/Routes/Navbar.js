@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,51 +7,18 @@ import Button from "@mui/material/Button";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import ArchitectureIcon from "@mui/icons-material/Architecture";
-import api from '../api';
-import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie';
+import { useAuth } from '../Context/AuthContext';
 
 function Navbar() {
 
-  const[display, setDisplay] = useState(false);
-  const[displayAuth, setDisplayAuth] = useState(true);
-  const navigate = useNavigate()
-
-  async function userInfo(){
-    try {
-      const response = await api.get('/')
-      if(response.status===200){
-        setDisplay(true);
-        setDisplayAuth(false);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(()=>{
-    userInfo();
-  });
-
-  async function userLogout(){
-    try {
-       const response = await api.get(`/logout`);
-        if(response.status === 200){
-          localStorage.removeItem('user');
-          Cookies.remove('token')
-          navigate('/login')
-        }
-    } catch (error) {
-        console.log(error)
-    }
-    
-}
+  const { logout } = useAuth();
+  const token = localStorage.getItem('token');
  
   return (
     <Box>
       <AppBar position="static">
         <Toolbar>
-          { display && (<Sidebar/>)}
+          { token && (<Sidebar/>)}
           <Link to="/" style={{ color: "white", textDecoration: "none" }}>
             <ArchitectureIcon style={{ marginLeft: "1%" }} />
           </Link>
@@ -71,11 +38,11 @@ function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {/* News */}
           </Typography>
-          {displayAuth === true? (<><Link to="/login" style={{ color: "white", textDecoration: "none" }}>
-          <Button color="inherit">Login</Button></Link>
-          <Link to="/register" style={{ color: "white", textDecoration: "none" }}>
-          <Button color="inherit">Register</Button></Link></>) : (<Link style={{ color: "white", textDecoration: "none" }}>
-          <Button onClick={userLogout} color="inherit">Logout</Button></Link>) }
+          {token? (<Link style={{ color: "white", textDecoration: "none" }}>
+          <Button onClick={logout} color="inherit">Logout</Button></Link>
+          ) : (<><Link to="/login" style={{ color: "white", textDecoration: "none" }}>
+          <Button color="inherit">Login</Button></Link><Link to="/register" style={{ color: "white", textDecoration: "none" }}>
+          <Button color="inherit">Register</Button></Link></>) }
         </Toolbar>
       </AppBar>
     </Box>

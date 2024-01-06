@@ -7,6 +7,12 @@ import Task from "./Task";
 import Status from "./Status";
 import "./Task.css";
 import { Container, TextField } from "@mui/material";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { useAuth } from '../Context/AuthContext';
 
 function Dashboard() {
   const [isExpanded, setExpanded] = useState(false);
@@ -17,9 +23,25 @@ function Dashboard() {
     content: "",
     user: "",
     status: "Assigned",
+    completion: 25,
   });
 
   const [searchTask, setSearchTask] = useState(data);
+  const [userName, setUserName] = useState([]);
+  const { userRole, logout } = useAuth();
+  const token = localStorage.getItem('token');
+
+  async function handleUser() {
+    try {
+      const response = await api.get(`/user/developer`);
+
+      if (response.status === 200) {
+        setUserName(response.data);
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  }
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -57,21 +79,26 @@ function Dashboard() {
   }
 
   async function TaskDetails() {
+    if(token){
     try {
       const response = await api.get(`/task`);
-        if (response.status === 200) {
-          setData(response.data);
-          setSearchTask(response.data);
-        }
+      if (response.status === 200) {
+        setData(response.data);
+        setSearchTask(response.data);
+      }
     } catch (error) {
       console.log(error);
     }
+  }else if(!token){
+    logout()
+  }
   }
 
   /* eslint-disable react-hooks/exhaustive-deps */
 
   useEffect(() => {
     TaskDetails();
+    handleUser();
   }, []);
 
   const expand = () => {
@@ -80,7 +107,7 @@ function Dashboard() {
 
   return (
     <div>
-      <form method="POST" className="create-note">
+      {userRole.role === "projectAdmin" && (<form method="POST" className="create-note">
         <textarea
           name="title"
           onClick={expand}
@@ -88,6 +115,7 @@ function Dashboard() {
           value={note.title}
           min={5}
           placeholder="Add a task"
+          required={true}
           rows={isExpanded === true ? 1 : 1}
         />
 
@@ -99,19 +127,22 @@ function Dashboard() {
               onChange={handleChange}
               value={note.content}
               min={5}
+              required={true}
               placeholder="Description..."
               rows={isExpanded === true ? 1 : 0}
             />
-
-            <textarea
-              name="user"
-              onClick={expand}
-              onChange={handleChange}
-              value={note.user}
-              min={3}
-              placeholder="Assign a user"
-              rows={isExpanded === true ? 1 : 0}
-            />
+            <br/>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="user">Assign a Developer</InputLabel>
+                <Select labelId="labelId" id="userId" name = "user" value={note.user} label="userlabel" onChange={handleChange}
+                >
+                  {userName.map((item, index)=>{
+                    return (<MenuItem key={index} id = {item._id} value={item.name}>{item.name}</MenuItem>)
+                  })}
+                  </Select>
+              </FormControl>
+            </Box>
           </>
         )}
         <Zoom in={isExpanded}>
@@ -124,13 +155,13 @@ function Dashboard() {
             <AddIcon />
           </Fab>
         </Zoom>
-      </form>
+      </form>)}
 
       <Container
         style={{ width: "50%", margin: "20px auto", display: "block" }}
       >
         <TextField
-          type="text"
+          type="search"
           placeholder="Search Tasks"
           onChange={handleSearch}
           style={{
@@ -162,6 +193,8 @@ function Dashboard() {
               key={noteItem._id + index + 5}
               id={noteItem._id}
               title={noteItem.title}
+              status={noteItem.status}
+              completion={noteItem.completion}
             />
           </div>
         );
