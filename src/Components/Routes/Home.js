@@ -8,11 +8,12 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const [userName, setUserName] = useState(null);
   const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
   
   async function userNameFunc(){
     try {
-      const response = await api.get(`/user/${token}`);
+      const response = await api.get(`/user/${userId}`);
       if (response.status === 200) {
         setUserName(response.data.name)
       }
